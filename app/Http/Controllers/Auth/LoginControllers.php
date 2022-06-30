@@ -15,7 +15,7 @@ use Str;
 use Session;
 use Redirect;
 
-class LoginController extends Controller
+class LoginControllers extends Controller
 {
     /*
     |--------------------------------------------------------------------------

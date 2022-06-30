@@ -12,6 +12,16 @@ use App\Models\Code;
 
 class MobileController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
         return view('mobile.home');
     }
@@ -168,9 +178,6 @@ class MobileController extends Controller
 
         $response = curl_exec($ch);
         curl_close($ch);
-        // print_r($response);
-        // echo $response['status'];
-        // die();
     }
 
 

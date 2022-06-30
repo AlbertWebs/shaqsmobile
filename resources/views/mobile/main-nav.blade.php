@@ -36,6 +36,10 @@
 
        </li>
        <li>
+        <a href="{{url('/')}}/mobile/profile"><i class="mdi mdi-comment mr-2"></i>Live Chat</a>
+
+     </li>
+       <li>
         <a href="{{url('/')}}/mobile/logout"><i class="mdi mdi-power mr-2"></i>Logout</a>
 
      </li>
