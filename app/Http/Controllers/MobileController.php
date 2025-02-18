@@ -611,9 +611,6 @@ class MobileController extends Controller
                 );
                 DB::table('lnmo_api_response')->where('id',$Last->lnmoID)->update($updateDetails);
             }
-
-        // Log To Laravel LOgs
-        activity()->log('STK Payment Has Been Made');
         Log::info($request->getContent());
 
         // Responding to the confirmation request
