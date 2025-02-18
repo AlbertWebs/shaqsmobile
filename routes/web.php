@@ -382,7 +382,7 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 
         Route::get('/', [App\Http\Controllers\MobileLoginController::class, 'index'])->name('index');
-        Route::get('/stk-call-back', [App\Http\Controllers\MobileLoginController::class, 'customerMpesaSTKPushCallBack'])->name('customerMpesaSTKPushCallBack');
+        Route::get('/stk-call-back', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('customerMpesaSTKPushCallBack');
 
 
         // search post route

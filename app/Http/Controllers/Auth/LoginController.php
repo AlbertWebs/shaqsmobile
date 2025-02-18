@@ -95,7 +95,7 @@ class LoginController extends Controller
         ]);
 
         Auth::login($user, true);
-        return redirect()->to('/apps/my-course');
+        return redirect()->to('/mobile');
     }
 
     public function facebook(){
@@ -118,7 +118,7 @@ class LoginController extends Controller
         ]);
 
         Auth::login($user, true);
-        return redirect()->to('/apps/my-course');
+        return redirect()->to('/mobile');
     }
 
 
@@ -126,6 +126,6 @@ class LoginController extends Controller
     {
         $user = $service->createOrGetUser(Socialite::driver('facebook')->user());
         auth()->login($user);
-        return redirect()->to('/apps/home');
+        return redirect()->to('/mobile');
     }
 }
