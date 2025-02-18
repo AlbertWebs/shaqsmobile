@@ -29,6 +29,9 @@ Route::get('/menu', function () {
     return view('shaqshouse.menu');
 });
 
+Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
+Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+
 // Route::post('/mobile/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
 // Route::post('/mobile/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
 // Route::post('/mobile/login', [App\Http\Controllers\MobileController::class, 'login'])->name('mobile.login');
@@ -374,9 +377,9 @@ Route::group(['prefix'=>'admin'], function(){
 
         // SocialMedia
         Route::get('/facebook', [LoginController::class, 'facebook']);
-        Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
         Route::get('/google', [LoginController::class, 'google']);
         Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
+        Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 
         Route::get('/', [App\Http\Controllers\MobileLoginController::class, 'index'])->name('index');
         Route::get('/stk-call-back', [App\Http\Controllers\MobileLoginController::class, 'customerMpesaSTKPushCallBack'])->name('customerMpesaSTKPushCallBack');
