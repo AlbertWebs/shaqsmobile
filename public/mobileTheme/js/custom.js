@@ -8,7 +8,7 @@ Version: 1.0
 (function($) {
   "use strict";
 
-   $("body").on("contextmenu",function(e){
+    $("body").on("contextmenu",function(e){
         return false;
     });
     $(document).keydown(function(e){
@@ -42,7 +42,7 @@ Version: 1.0
             return false;
          }
          // "F12" key
-         if (event.keyCode == 123) {
+         if (e.keyCode == 123) {
             return false;
          }
     });
@@ -236,6 +236,8 @@ ga('send', 'pageview');
               alert(response);
             }
         });
+        event.stopImmediatePropagation();
+        return false;
 
     });
 
@@ -259,6 +261,31 @@ ga('send', 'pageview');
             }
         });
     });
+
+    $('#stk-push').submit(function(e) {
+        // e.preventDefault();
+        e.stopImmediatePropagation();
+        var actionurl = e.currentTarget.action;
+        $(".loading-img").show();
+        $.ajax({
+            url: actionurl,
+            type: 'post',
+            dataType: 'json',
+            data: $('#stk-push').serialize(),
+            success: function(data) {
+               $(".loading-img").hide();
+               var host = window.location.protocol + "//" + window.location.host + "/mobile/profile";
+               if(data['message'] == "Success"){
+                  window.location.replace(host);
+               }else{
+                  alert(data['message']);
+               }
+            }
+        });
+        e.stopImmediatePropagation();
+        return false;
+    });
+
 
     $('#Veryfy').submit(function(e) {
         e.preventDefault();

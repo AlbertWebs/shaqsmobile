@@ -25,7 +25,9 @@ Route::get('/', function () {
     return view('shaqshouse.index');
 });
 
-
+Route::get('/menu', function () {
+    return view('shaqshouse.menu');
+});
 
 // Route::post('/mobile/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
 // Route::post('/mobile/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
@@ -385,6 +387,9 @@ Route::group(['prefix'=>'admin'], function(){
         Route::post('/update-profile', [App\Http\Controllers\MobileController::class, 'update_profile'])->name('update-profile');
         Route::post('/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
         Route::post('/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
+
+        Route::post('/stk-push', [App\Http\Controllers\MobileController::class, 'stk_push'])->name('stk-push');
+
         Route::get('/send-verification-test', [App\Http\Controllers\MobileController::class, 'send_verification_test'])->name('send-verification-test');
         Route::post('/login', [App\Http\Controllers\MobileLoginController::class, 'login'])->name('mobile.login');
         Route::post('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up_post'])->name('mobile.login');
@@ -424,4 +429,6 @@ Route::group(['prefix'=>'admin'], function(){
             Route::get('/orders/re-order/{id}', [App\Http\Controllers\MobileController::class, 'orders_re_order'])->name('orders-re-order');
             Route::get('/orders/mailClient', [App\Http\Controllers\MobileController::class, 'mailClient'])->name('orders-mailClient');
         });
+
+        Route::get('/test-stk-push', [App\Http\Controllers\MobileController::class, 'test_stk'])->name('test-stk-push');
     });

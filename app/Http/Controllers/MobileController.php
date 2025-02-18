@@ -14,9 +14,13 @@ use App\Models\orders;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\ReplyMessage;
+use App\Models\STKRequest;
+use App\Models\STKMpesaTransaction;
 use Jenssegers\Agent\Agent;
+use Carbon\Carbon;
 use Response;
 use Session;
+use Illuminate\Support\Facades\Log;
 
 class MobileController extends Controller
 {
@@ -316,6 +320,8 @@ class MobileController extends Controller
             return response()->json($response);
     }
 
+
+
     public function place_orders(){
         // Create Invoice
         $Invoice = DB::table('invoices')->orderBy('id','DESC')->Limit('1')->get();
@@ -435,6 +441,258 @@ class MobileController extends Controller
         $search = $request->search;
         $Menu = DB::table('menus')->where('title','LIKE','%'.$search.'%')->get();
         return view('mobile.search', compact('Menu'));
+    }
+
+    public function lipaNaMpesaPassword()
+    {
+        $lipa_time = Carbon::rawParse('now')->format('YmdHms');
+        $passkey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+        $BusinessShortCode = 174379;
+        $timestamp =$lipa_time;
+        $lipa_na_mpesa_password = base64_encode($BusinessShortCode.$passkey.$timestamp);
+        return $lipa_na_mpesa_password;
+    }
+
+    public function generateAccessToken()
+    {
+        $consumer_key=env('MPESA_CONSUMER_KEY');
+        $consumer_secret=env('MPESA_CONSUMER_SECRET');
+
+        $credentials = base64_encode($consumer_key.":".$consumer_secret);
+        $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Authorization: Basic ".$credentials));
+        curl_setopt($curl, CURLOPT_HEADER,false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $curl_response = curl_exec($curl);
+        $access_token=json_decode($curl_response);
+        return $access_token->access_token;
+    }
+
+    public function test_stk(){
+        $AmountSTK = 1;
+        $phoneNumber = "254723014032";
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
+        $curl_post_data = [
+            //Fill in the request parameters with valid values
+            'BusinessShortCode' => env('BUSINESSSHORTCODE'),
+            'Password' => $this->lipaNaMpesaPassword(),
+            'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => $AmountSTK,
+            'PartyA' => $phoneNumber, // replace this with your phone number
+            'PartyB' => env('STKPARTYB'),
+            'PhoneNumber' => $phoneNumber, // replace this with your phone number
+            'CallBackURL' => env('STK_CALLBACKURL'),
+            'AccountReference' => "Shaqs House Limited",
+            'TransactionDesc' => "TEST"
+        ];
+        $data_string = json_encode($curl_post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        $curl_response = curl_exec($curl);
+    }
+
+
+
+    public function customerMpesaSTKPush(Request $request)
+    {
+       // check user table if phone mobile field is empty if its empty update with $request->mobile
+        $user = \App\Models\User::where('id', $request->user_id)->first();
+        if($user){
+            $user->mobile = $request->mobile;
+            $user->save();
+        }
+
+
+
+        $phoneNumber = str_replace("+","",$request->mobile);
+        $AmountSTK = $request->amount;
+
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
+        $curl_post_data = [
+            //Fill in the request parameters with valid values
+            'BusinessShortCode' => env('BUSINESSSHORTCODE'),
+            'Password' => $this->lipaNaMpesaPassword(),
+            'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => $AmountSTK,
+            'PartyA' => $phoneNumber, // replace this with your phone number
+            'PartyB' => env('STKPARTYB'),
+            'PhoneNumber' => $phoneNumber, // replace this with your phone number
+            'CallBackURL' => env('STK_CALLBACKURL'),
+            'AccountReference' => "Shaqs House Limited",
+            'TransactionDesc' => "TEST"
+        ];
+        $data_string = json_encode($curl_post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        $curl_response = curl_exec($curl);
+        // return $curl_response;
+
+         // Insert MerchantRequestID
+         $curl_content=json_decode($curl_response);
+         $MerchantRequestID = $curl_content->MerchantRequestID;
+         $mpesa_transaction = new STKRequest;
+         $mpesa_transaction->CheckoutRequestID =  $curl_content->CheckoutRequestID;
+         $mpesa_transaction->MerchantRequestID =  $MerchantRequestID;
+         $mpesa_transaction->user_id =  $request->user_id;
+         $mpesa_transaction->PhoneNumber =  $phoneNumber;
+         $mpesa_transaction->Amount =  $AmountSTK;
+         $mpesa_transaction->save();
+
+
+         $STKMpesaTransaction = new STKMpesaTransaction;
+         $STKMpesaTransaction->user_id = $request->user_id;
+         $STKMpesaTransaction->CheckoutRequestID = $curl_content->CheckoutRequestID;
+         $STKMpesaTransaction->MerchantRequestID = $MerchantRequestID;
+         $STKMpesaTransaction->PhoneNumber = $phoneNumber;
+         $STKMpesaTransaction->Amount = $AmountSTK;
+         $STKMpesaTransaction->checkout = $request->cartItems;
+         $STKMpesaTransaction->save();
+
+         Log::info($curl_response);
+
+         $CheckoutRequestID = $curl_content->CheckoutRequestID;
+         $table = 'lnmo_api_response';
+         return $this->checklast($CheckoutRequestID,$curl_response,$request->user_id);
+    }
+
+    public function checklast($AccID,$curl_response,$user){
+
+        $TableData = DB::table('lnmo_api_response')->where('CheckoutRequestID', $AccID)->where('status','1')->get();
+        if($TableData->isEmpty()){
+            sleep(10);
+            return $this->checklast($AccID,$curl_response,$user);
+        }else{
+            $UpdateDetails = array(
+                'status'=>1,
+            );
+            $UpdateDetail = array(
+                'user_id'=>$user,
+            );
+            DB::table('s_t_k_requests')->where('CheckoutRequestID',$AccID)->update($UpdateDetails);
+            //return json success
+            return response()->json(['message'=>'Success']);
+        }
+    }
+
+
+    public function customerMpesaSTKPushCallBack(Request $request){
+        Log::info($request->getContent());
+        $content=json_decode($request->getContent(), true);
+
+
+            $nameArr = [];
+            foreach ($content['Body']['stkCallback']['CallbackMetadata']['Item'] as $row) {
+
+                if(empty($row['Value'])){
+                    continue;
+                }
+                $nameArr[$row['Name']] = $row['Value'];
+                // addUserID
+            }
+            DB::table('lnmo_api_response')->insert($nameArr);
+            $LastRecord = DB::table('lnmo_api_response')->orderBy('lnmoID','desc')->first();
+            foreach($LastRecord as $Last){
+                $updateDetails = array(
+                    'user_id' => Auth::user()->id,
+                );
+                DB::table('lnmo_api_response')->where('id',$Last->lnmoID)->update($updateDetails);
+            }
+
+        // Log To Laravel LOgs
+        activity()->log('STK Payment Has Been Made');
+        Log::info($request->getContent());
+
+        // Responding to the confirmation request
+        $response = new Response;
+        $response->headers->set("Content-Type","text/xml; charset=utf-8");
+        $response->setContent(json_encode(["STKPUSHPaymentConfirmationResult"=>"Success"]));
+        return $response;
+    }
+
+    public function stk_push(Request $request){
+        $amount = $request->amount;
+        $mobile = $request->mobile;
+        Log::info("$mobile Initiated STK Push for amout $amount");
+
+        // Initiatre STK
+        $AmountSTK = $amount;
+        $phoneNumber = str_replace( '+', '', $mobile);
+        $url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
+        $curl_post_data = [
+            //Fill in the request parameters with valid values
+            'BusinessShortCode' => env('BUSINESSSHORTCODE'),
+            'Password' => $this->lipaNaMpesaPassword(),
+            'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
+            'TransactionType' => 'CustomerPayBillOnline',
+            'Amount' => $AmountSTK,
+            'PartyA' => $phoneNumber, // replace this with your phone number
+            'PartyB' => env('STKPARTYB'),
+            'PhoneNumber' => $phoneNumber, // replace this with your phone number
+            'CallBackURL' => env('STK_CALLBACKURL'),
+            'AccountReference' => "Shaqs House Limited",
+            'TransactionDesc' => "TEST"
+        ];
+        $data_string = json_encode($curl_post_data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
+        $curl_response = curl_exec($curl);
+
+        // Insert MerchantRequestID
+        $curl_content=json_decode($curl_response);
+        $MerchantRequestID = $curl_content->MerchantRequestID;
+        $mpesa_transaction = new STKRequest;
+        $mpesa_transaction->CheckoutRequestID =  $curl_content->CheckoutRequestID;
+        $mpesa_transaction->MerchantRequestID =  $MerchantRequestID;
+        $mpesa_transaction->user_id =  Auth::User()->id;
+        $mpesa_transaction->PhoneNumber =  $phoneNumber;
+        $mpesa_transaction->Amount =  $AmountSTK;
+        $mpesa_transaction->save();
+
+
+        $STKMpesaTransaction = new STKMpesaTransaction;
+        $STKMpesaTransaction->user_id = Auth::User()->id;
+        $STKMpesaTransaction->CheckoutRequestID = $curl_content->CheckoutRequestID;
+        $STKMpesaTransaction->MerchantRequestID = $MerchantRequestID;
+        $STKMpesaTransaction->PhoneNumber = $phoneNumber;
+        $STKMpesaTransaction->Amount = $AmountSTK;
+        $STKMpesaTransaction->checkout = $request->cartItems;
+        $STKMpesaTransaction->save();
+
+        Log::info($curl_response);
+
+        $CheckoutRequestID = $curl_content->CheckoutRequestID;
+        $user_id = Auth::User()->id;
+        $table = 'lnmo_api_response';
+        return $this->checklast($CheckoutRequestID,$curl_response,$user_id);
+        // Place Order.
+        orders::createOrder();
+
+        // SMS KETTLE HOUSE
+
+
+        // Clear Cart
+        \Cart::clear();
+        return response()->json([
+            "message" => "Success"
+        ]);
     }
 
 
