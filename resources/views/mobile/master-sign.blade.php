@@ -8,7 +8,7 @@
       <meta name="author" content="Designekta Studios">
       <link rel="icon" type="image/png" href="{{asset('uploads/VENSHAQ001-41.png')}}">
       {{-- @include('favicon') --}}
-      <title>Shaq's Choma Zone - Food Order Directory</title>
+      <title>Shaq's Bites - Food Order Directory</title>
       <link rel="icon" type="image/png" href="{{asset('uploads/VENSHAQ001-41.png')}}">
 
       <link href="{{asset('mobileTheme/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
