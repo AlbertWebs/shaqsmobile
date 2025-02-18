@@ -31,7 +31,7 @@
                     <p class="text-white mb-1">{{$category->cat}}</p>
                     {{-- <span class="text-muted">kes {{$menu->price}}</span> --}}
                     </span>
-                    <img  src="{{url('/')}}/uploads/categories/{{$category->image}}" class="img-fluid box_rounded" style="height:100px; object-fit:cover">
+                    <img  src="{{url('/')}}/uploads/categories/{{$category->image}}" class="img-fluid box_rounded" style="height:130px; width:100%; object-fit:cover">
                 </div>
             </a>
             @endforeach
