@@ -1,5 +1,5 @@
 /*
-Template Name: Zomoto - Food Order Directory, Restaurants, Fast Food, Bars Mobile Template 
+Template Name: Zomoto - Food Order Directory, Restaurants, Fast Food, Bars Mobile Template
 Author: Askbootstrap
 Author URI: https://themeforest.net/user/askbootstrap
 Version: 1.0
@@ -506,4 +506,9 @@ body.index_bg {
 }
 .slide_slider {
     height: 91vh;
+}
+.pull-right{
+    float:right;
+    border-radius:5px;
+    border:2px solid #f79338;
 }
