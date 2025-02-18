@@ -37,7 +37,7 @@
             @endforeach
        </div>
     </section>
-    <section class="near py-3 pl-3 bg-light">
+    {{-- <section class="near py-3 pl-3 bg-light">
        <div class="title mb-2 pb-1 d-flex align-items-center">
           <h6 class="mb-0 fw-bold">Near you</h6>
           <a href="near#html" class="ml-auto pr-3"><span class="text-primary">View All</span></a>
@@ -72,7 +72,7 @@
              </div>
           </a>
        </div>
-    </section>
+    </section> --}}
     <div class="px-3">
        <div class="title mb-3 d-flex align-items-center">
           <h6 class="mb-0 fw-bold">Menu</h6>
