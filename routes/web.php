@@ -379,6 +379,9 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
 
         Route::get('/', [App\Http\Controllers\MobileLoginController::class, 'index'])->name('index');
+        Route::get('/stk-call-back', [App\Http\Controllers\MobileLoginController::class, 'customerMpesaSTKPushCallBack'])->name('customerMpesaSTKPushCallBack');
+
+
         // search post route
         Route::post('/search', [App\Http\Controllers\MobileController::class, 'search_menu'])->name('search-menu');
         Route::get('/veryfy-number', [App\Http\Controllers\MobileController::class, 'veryfy_number'])->name('veryfy-number');

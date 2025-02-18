@@ -624,7 +624,8 @@ class MobileController extends Controller
     }
 
     public function stk_push(Request $request){
-        $amount = $request->amount;
+        $amount = "1";
+        // $amount = $request->amount;
         $mobile = $request->mobile;
         Log::info("$mobile Initiated STK Push for amout $amount");
 
