@@ -12,8 +12,8 @@
           <span class="mdi mdi-circle-medium text-warning"></span></a>
        </div>
        <div class="col text-center">
-          <a href="{{url('/')}}/mobile/profile/orders" class="text-muted">
-             <h1 class="mb-0"><span class="mdi mdi-page-next-outline"></span></h1>
+          <a href="{{url('/')}}/mobile/profile/orders" class="text-muted" id="myCart">
+             <h1 class="mb-0"><span class="mdi mdi-cart"></span></h1>({{\Cart::getContent()->count()}})
           </a>
        </div>
        <div class="col text-center">

@@ -386,6 +386,17 @@ class MobileController extends Controller
 
 
 
+    public function edit_profile_post(Request $request){
+        $updateDetails = array(
+            'name'=>$request->name,
+            'mobile'=>$request->mobile,
+            'location'=>$request->location,
+         );
+
+         DB::table('users')->where('id', Auth::User()->id)->update($updateDetails);
+         $User = User::find(Auth::User()->id);
+         return view('mobile.edit-profile', compact('User'));
+    }
     public function edit_profile_pic_post(Request $request){
         if($request->file('avatar')){
             $file= $request->file('avatar');

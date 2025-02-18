@@ -398,6 +398,8 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/menu', [App\Http\Controllers\MobileController::class, 'menus'])->name('menu');
         Route::get('/menus/{slung}', [App\Http\Controllers\MobileController::class, 'menu'])->name('menu');
         Route::get('/menu/{slung}', [App\Http\Controllers\MobileController::class, 'category'])->name('category');
+
+
         Route::get('/edit-profile-pic', [App\Http\Controllers\MobileController::class, 'edit_profile_pic'])->name('edit-profile-pic');
         Route::post('/edit-profile-pic', [App\Http\Controllers\MobileController::class, 'edit_profile_pic_post'])->name('edit-profile-pic-post');
         Route::get('/search', [App\Http\Controllers\MobileController::class, 'search'])->name('search');
@@ -413,6 +415,7 @@ Route::group(['prefix'=>'admin'], function(){
         Route::group(['prefix'=>'profile'], function(){
             Route::get('/', [App\Http\Controllers\MobileController::class, 'profile'])->name('profile');
             Route::get('/edit-profile', [App\Http\Controllers\MobileController::class, 'edit_profile'])->name('edit-profile');
+            Route::post('/edit-profile-post', [App\Http\Controllers\MobileController::class, 'edit_profile_post'])->name('edit-profile-post');
             Route::get('/transactions', [App\Http\Controllers\MobileController::class, 'transactions'])->name('transactions');
             Route::get('/orders', [App\Http\Controllers\MobileController::class, 'orders'])->name('orders');
             Route::get('/orders/place-orders', [App\Http\Controllers\MobileController::class, 'place_orders'])->name('place-orders');

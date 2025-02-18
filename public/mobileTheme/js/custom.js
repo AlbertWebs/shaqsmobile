@@ -48,6 +48,9 @@ Version: 1.0
     });
 
 
+
+
+
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -214,6 +217,26 @@ ga('send', 'pageview');
                }
             }
         });
+    });
+
+    $( ".order-btn" ).click(function(event) {
+        event.preventDefault();
+        var productID = $(this).attr('id');
+        var host = window.location.protocol + "//" + window.location.host + "/mobile/shopping-cart/add-to-cart/" + productID;
+        $.ajax({
+            url: host,
+            method: "GET",
+            success: function(response) {
+              // Handle the successful response
+              $("#myCart").load(location.href + " #myCart");
+              alert(response);
+            },
+            error: function(xhr, status, error) {
+              // Handle the error
+              alert(response);
+            }
+        });
+
     });
 
     $('#Veryfy-Form').submit(function(e) {

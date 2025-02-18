@@ -28,26 +28,26 @@
     </section>
     <section class="p-3 bg-light body_rounded mt-n5">
        <p class="text-muted mb-4">Profile Details</p>
-       <form class="mb-5">
-        @csrf
+       <form class="mb-5" method="POST" action="{{route('edit-profile-post')}}">
+          @csrf
           <div class="d-flex align-items-center mb-3 border-bottom pb-2">
              <span class="mdi mdi-account-outline box_rounded py-1 px-2 shadow-sm btn bg-white mr-1 text-primary"></span>
              <div class="form-floating w-100">
-                <input type="text" class="form-control border-0 bg-light" id="floatingInputValue" placeholder="Albert Muhatia" value="Albert Muhatia">
+                <input type="text" class="form-control border-0 bg-light" name="name" id="floatingInputValue" placeholder="Albert Muhatia" value="{{Auth::User()->name}}">
                 <label for="floatingInputValue">FULL NAME</label>
              </div>
           </div>
           <div class="d-flex align-items-center mb-3 border-bottom pb-2">
              <span class="mdi mdi-email-outline box_rounded py-1 px-2 shadow-sm btn bg-white mr-1 text-primary"></span>
              <div class="form-floating w-100">
-                <input type="email" class="form-control border-0 bg-light" id="floatingInputValue" placeholder="albertmuhatia@gmail.com" value="albertmuhatia@gmail.com">
+                <input type="email" class="form-control border-0 bg-light" id="floatingInputValue" name="email"  placeholder="albertmuhatia@gmail.com" value="{{Auth::User()->email}}">
                 <label for="floatingInputValue">EMAIL</label>
              </div>
           </div>
           <div class="d-flex align-items-center mb-3 border-bottom pb-2">
             <span class="mdi mdi-phone box_rounded py-1 px-2 shadow-sm btn bg-white mr-1 text-primary"></span>
             <div class="form-floating w-100">
-               <input type="text" class="form-control border-0 bg-light" id="floatingInputValue" placeholder="254723014032" value="254723014032">
+               <input type="text" class="form-control border-0 bg-light" name="mobile"  id="floatingInputValue" placeholder="254723014032" value="{{Auth::User()->mobile}}">
                <label for="floatingInputValue">Mobile</label>
             </div>
          </div>
@@ -55,7 +55,7 @@
          <div class="d-flex align-items-center mb-3 border-bottom pb-2">
             <span class="mdi mdi-map box_rounded py-1 px-2 shadow-sm btn bg-white mr-1 text-primary"></span>
             <div class="form-floating w-100">
-               <input type="text" class="form-control border-0 bg-light" id="floatingInputValue" placeholder="Ongata Rongai" value="Ongata Rongai">
+               <input type="text" class="form-control border-0 bg-light" name="location"  id="floatingInputValue" placeholder="Ongata Rongai" value="{{Auth::User()->location}}">
                <label for="floatingInputValue">Address</label>
             </div>
          </div>
