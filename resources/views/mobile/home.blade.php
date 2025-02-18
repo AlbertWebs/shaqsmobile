@@ -87,7 +87,7 @@
                    <p class="text-dark mb-1 fw-bold">{{$menu->title}}</p>
                    <p class="small mb-2"><i class="mdi mdi-star text-warning"></i> <span class="font-weight-bold text-dark ml-1 fw-bold">4.8</span> <span class="text-muted"> <span class="mdi mdi-circle-medium"></span> <?php $Cat = DB::table('category')->where('id',$menu->cat_id)->first() ?>{{$Cat->cat}}
                    <span class="mdi mdi-circle-medium"></span> kes {{$menu->price}} </span></p>
-                   <p class="small mb-0 text-muted ml-auto"><span class="bg-light d-inline-block font-weight-bold text-muted rounded-3 py-1 px-2">25-30 min</span> &nbsp; <button class="pull-right" href="">Add To Plate <span class="mdi mdi-food"></span></button></p>
+                   <p class="small mb-0 text-muted ml-auto"><span class="bg-light d-inline-block font-weight-bold text-muted rounded-3 py-1 px-2">25-30 min</span> &nbsp; <button class="pull-right" href="">Order <span class="mdi mdi-food"></span></button></p>
                 </div>
              </div>
           </a>
