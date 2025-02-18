@@ -21,91 +21,24 @@
           <input type="text" class="form-control border-0 bg-white" placeholder="Search" aria-label="search" aria-describedby="basic-addon1">
        </div>
     </section>
-    <section class="search p-3 bg-light body_rounded mt-n5">
-       <div class="title mb-3">
-          <h6 class="mb-0">Recent Searches</h6>
-       </div>
-       <a href="detail2.html">
-          <p class="text-muted d-flex align-items-center mb-2"><span class="mdi mdi-clock-outline mr-2 h5 mb-0"></span> Burger</p>
-       </a>
-       <a href="detail2.html">
-          <p class="text-muted d-flex align-items-center mb-2"><span class="mdi mdi-clock-outline mr-2 h5 mb-0"></span> Pizza</p>
-       </a>
-       <a href="detail2.html">
-          <p class="text-muted d-flex align-items-center"><span class="mdi mdi-clock-outline mr-2 h5 mb-0"></span> Hard Rock Coffee</p>
-       </a>
-    </section>
-    <section class="search p-3 bg-light">
-       <div class="title mb-3">
-          <h6 class="mb-0">Recent Searches</h6>
-       </div>
-       <div class="row">
-          <div class="col mb-2 pr-1">
-             <a href="detail1.html">
-                <div class="featured_item">
-                   <div class="position-absolute p-2">
-                      <p class="text-white small"><span class="mdi mdi-circle-medium text-warning"></span> Burger</p>
-                   </div>
-                   <img src="{{asset('mobileTheme/img/search1.jpg')}}" class="img-fluid box_rounded">
-                </div>
+    <section class="featured py-3 pl-3 bg-white body_rounded mt-n5">
+        <div class="title mb-3">
+           <h6 class="mb-0 fw-bold">Featured</h6>
+        </div>
+        <div class="featured_slider">
+             @foreach ($Category as $category)
+             <a href="{{url('/')}}/menus/{{$category->id}}">
+                 <div class="featured_item mr-2">
+                     <span class="position-absolute pb-2 pl-3">
+                     <p class="text-white mb-1">{{$category->cat}}</p>
+                     {{-- <span class="text-muted">kes {{$menu->price}}</span> --}}
+                     </span>
+                     <img  src="{{url('/')}}/uploads/categories/{{$category->image}}" class="img-fluid box_rounded" style="height:130px; width:100%; object-fit:cover">
+                 </div>
              </a>
-          </div>
-          <div class="col mb-2 pl-1">
-             <a href="detail1.html">
-                <div class="featured_item">
-                   <div class="position-absolute p-2">
-                      <p class="text-white small"><span class="mdi mdi-circle-medium text-warning"></span> Pizza</p>
-                   </div>
-                   <img src="{{asset('mobileTheme/img/search2.jpg')}}" class="img-fluid box_rounded">
-                </div>
-             </a>
-          </div>
-       </div>
-       <div class="row">
-          <div class="col mb-2 pr-1">
-             <a href="detail1.html">
-                <div class="featured_item">
-                   <div class="position-absolute p-2">
-                      <p class="text-white small"><span class="mdi mdi-circle-medium text-warning"></span> Sandwich</p>
-                   </div>
-                   <img src="{{asset('mobileTheme/img/search3.jpg')}}" class="img-fluid box_rounded">
-                </div>
-             </a>
-          </div>
-          <div class="col mb-2 pl-1">
-             <a href="detail1.html">
-                <div class="featured_item">
-                   <div class="position-absolute p-2">
-                      <p class="text-white small"><span class="mdi mdi-circle-medium text-warning"></span> Pasta</p>
-                   </div>
-                   <img src="{{asset('mobileTheme/img/search4.jpg')}}" class="img-fluid box_rounded">
-                </div>
-             </a>
-          </div>
-       </div>
-       <div class="row">
-          <div class="col mb-2 pr-1">
-             <a href="detail1.html">
-                <div class="featured_item">
-                   <div class="position-absolute p-2">
-                      <p class="text-white small"><span class="mdi mdi-circle-medium text-warning"></span> Noodels</p>
-                   </div>
-                   <img src="{{asset('mobileTheme/img/search5.jpg')}}" class="img-fluid box_rounded">
-                </div>
-             </a>
-          </div>
-          <div class="col mb-2 pl-1">
-             <a href="detail1.html">
-                <div class="featured_item">
-                   <div class="position-absolute p-2">
-                      <p class="text-white small"><span class="mdi mdi-circle-medium text-warning"></span> Diet Food</p>
-                   </div>
-                   <img src="{{asset('mobileTheme/img/search6.jpg')}}" class="img-fluid box_rounded">
-                </div>
-             </a>
-          </div>
-       </div>
-    </section>
+             @endforeach
+        </div>
+     </section>
  </div>
 @include('mobile.horizontal-nav')
 @include('mobile.main-nav')

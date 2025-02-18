@@ -17,7 +17,7 @@
       <link href="{{asset('mobileTheme/css/style.css')}}" rel="stylesheet" type="text/css">
       <link href="{{asset('mobileTheme/vendor/sidebar/demo.css')}}" rel="stylesheet">
    </head>
-   <body class="index_bg">
+   <body class="index_bgs">
       @yield('content')
       <script src="{{asset('mobileTheme/vendor/jquery/jquery.min.js')}}" type="text/javascript"></script>
       <script src="{{asset('mobileTheme/vendor/bootstrap/js/bootstrap.bundle.min.js')}}" crossorigin="anonymous" type="text/javascript"></script>
