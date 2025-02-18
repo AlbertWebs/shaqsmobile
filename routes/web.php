@@ -102,6 +102,12 @@ Route::get('/mobile/profile/orders', function () {
     return view('mobile.orders');
 });
 
+// SocialMedia
+Route::get('/facebook', [LoginController::class, 'facebook']);
+Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+Route::get('/google', [LoginController::class, 'google']);
+Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
+// End Duplicate
 
 Route::get('/', function () {
     return view('shaqshouse.index');
