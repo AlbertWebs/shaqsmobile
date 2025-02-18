@@ -66,7 +66,8 @@ Route::get('/mobile/shopping-cart', function () {
 });
 
 Route::get('/mobile/menu', function () {
-    return view('mobile.menu');
+    $Menu = \App\Models\Menu::all();
+    return view('mobile.menu', compact('Menu'));
 });
 
 Route::get('/mobile/search', function () {
