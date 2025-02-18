@@ -385,6 +385,7 @@ Route::group(['prefix'=>'admin'], function(){
         Route::post('/update-profile', [App\Http\Controllers\MobileController::class, 'update_profile'])->name('update-profile');
         Route::post('/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
         Route::post('/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
+        Route::get('/send-verification-test', [App\Http\Controllers\MobileController::class, 'send_verification_test'])->name('send-verification-test');
         Route::post('/login', [App\Http\Controllers\MobileLoginController::class, 'login'])->name('mobile.login');
         Route::post('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up_post'])->name('mobile.login');
         Route::get('/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');

@@ -226,6 +226,22 @@ class MobileController extends Controller
         return $Code;
     }
 
+
+    public function send_verification_test(Request $request){
+        // Generate Random Code
+        $Code = $this->generateCode();
+
+        $Message = "$Code is Your Shaq's House Verification code";
+        $PhoneNumber = "+254723014032";
+
+        $this->send($Message,$PhoneNumber);
+        return response()->json([
+            "message" => "Success"
+        ]);
+
+
+    }
+
     public function send_verification(Request $request){
         // Generate Random Code
         $Code = $this->generateCode();

@@ -32,7 +32,7 @@
           {{-- <div class="p-4 fixed-bottom">
              <a href="{{url('/')}}/mobile/verification-code" class="btn btn-danger btn-block box_rounded w-100 py-3">Send</a>
           </div> --}}
-          <input type="hidden" value="Auth::User()->id" name="user">
+          <input type="hidden" value="{{Auth::User()->id}}" name="user">
           <div class="p-4 fixed-bottom">
             <button type="submit" class="btn btn-danger btn-block box_rounded w-100 py-3">Send</button>
             <br>
