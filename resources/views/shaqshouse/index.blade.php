@@ -125,7 +125,7 @@
                                     <div id="intro-title">
                                         Shaq's House Limited
                                     </div>
-                                    <a class="menu-state" href="{{url('/')}}/menu" ><img width="120" alt="Closer" src="{{url('/')}}/uploads/menu.png"></a>
+                                    <a class="menu-state" href="{{url('/')}}/menu" ><img style="width:120px; border-radius:10px" alt="Closer" src="{{url('/')}}/uploads/menu.png"></a>
                                 </div>
                                 <div class="eight columns column">
                                     <!-- teaser start -->
