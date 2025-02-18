@@ -405,7 +405,7 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/search', [App\Http\Controllers\MobileController::class, 'search'])->name('search');
         Route::get('/shopping-cart', [App\Http\Controllers\MobileController::class, 'shopping_cart'])->name('cart.list.mobile');
         Route::get('/shopping-cart/add-to-cart/{id}', [App\Http\Controllers\MobileController::class, 'add_to_cart'])->name('add-to-cart');
-        Route::get('/shopping-cart/remove/{id}', [MobileController::class, 'removeCart'])->name('cart.remove.mobile');
+        Route::get('/shopping-cart/remove/{id}', [App\Http\Controllers\MobileController::class, 'removeCart'])->name('cart.remove.mobile');
         Route::get('/checkout', [App\Http\Controllers\MobileController::class, 'checkout'])->name('checkout');
         Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');
         Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');

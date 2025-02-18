@@ -207,7 +207,6 @@ class MobileController extends Controller
     {
         \Cart::remove($id);
         session()->flash('success', 'Item Cart Remove Successfully !');
-
         return redirect()->route('cart.list.mobile');
     }
 
