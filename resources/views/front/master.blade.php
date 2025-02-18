@@ -64,9 +64,9 @@
 					<div class="top-right">
 						<!-- Info List -->
 						<ul class="info-list">
-							<li><a href="tel:+254723014032"><span class="icon flaticon-phone-call"></span> (+254) 72 301 4032</a></li>
-							<li><a href="mailto:chomazone@shaqshouse.co.ke"><span class="icon flaticon-email"></span> chomazone@shaqshouse.co.ke</a></li>
-							<li><a href="coptact.html"><span class="icon flaticon-placeholder"></span> 22 Ananas Building,  Kiserian</a></li>
+							<li><a href="tel:+254723014032"><span class="icon flaticon-phone-call"></span> (+254) 070 678 8440</a></li>
+							<li><a href="mailto:chomazone@shaqshouse.co.ke"><span class="icon flaticon-email"></span> info@shaqshouse.co.ke</a></li>
+							<li><a href="coptact.html"><span class="icon flaticon-placeholder"></span> Kettle House Bar,   Lavington, Muthangari Road, off Gitanga Rd, Nairobi</a></li>
 						</ul>
 					</div>
 
@@ -98,9 +98,9 @@
 
 						<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
 							<ul class="navigation clearfix">
-								<li class="current dropdown"><a href="{{url('/')}}/menu">Menu</a>
+								{{-- <li class="current dropdown"><a href="{{url('/')}}/menu">Menu</a>
 
-								</li>
+								</li> --}}
                                 <?php
                                    $Category = DB::table('category')->limit('7')->get();
                                 ?>
@@ -161,7 +161,7 @@
 							<div class="box-inner">
 								<span class="icon flaticon-delivery"></span>
 								Order & Get Free Delivery<br>
-								<a href="tel:+254723014032">(+254) 072 301 4032</a>
+								<a href="tel:+254706788440">(+254) 070 678 8440</a>
 							</div>
 						</div>
 						<!-- End Delivery Box -->

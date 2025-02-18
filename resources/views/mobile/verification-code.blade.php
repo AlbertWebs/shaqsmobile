@@ -33,10 +33,7 @@
            <input type="number" class="form-control" value="2">
            <input type="number" class="form-control" value="5"> --}}
            <br>
-           <small>
-               {{-- Didnt receive code --}}
-               Didn't Receive Verification Code? <a href="">Resend</a>
-           </small>
+
            <div class="p-4 fixed-bottom">
             <button type="submit" class="btn btn-warning btn-block box_rounded w-100 py-3">Next</button>
             <br>
@@ -45,6 +42,12 @@
             </div>
          </div>
         </form>
+        <p style="text-align: center">
+            <small>
+                {{-- Didnt receive code --}}
+                Didn't Receive Verification Code? <a href="{{url('/')}}/mobile/veryfy-number">Resend</a>
+            </small>
+        </p>
      </section>
 
  </div>

@@ -1200,21 +1200,21 @@ public function Products(){
 }
 
 public function Products_featured(){
-    $Product = Product::all();
+    $Product = Menu::all();
     $page_title = 'list';
     $page_name = 'All Products Featured';
     return view('admin.featured',compact('page_title','Product','page_name'));
 }
 
 public function Products_offer(){
-    $Product = Product::all();
+    $Product = Menu::all();
     $page_title = 'list';
     $page_name = 'All Products On Offer';
     return view('admin.offer',compact('page_title','Product','page_name'));
 }
 
 public function swapoffer($id){
-    $Product = Product::find($id);
+    $Product = Menu::find($id);
     $page_title = 'formfiletext';
     $page_name = 'Give Offers';
     return view('admin.offerpage',compact('page_title','Product','page_name'));
@@ -1348,8 +1348,6 @@ public function edit_Product(Request $request, $id){
     }
     //Additional images
 
-
-
     $updateDetails = array(
         'title' => $request->name,
         'slung' => \Str::slug($request->name),
@@ -1368,7 +1366,7 @@ public function edit_Product(Request $request, $id){
 }
 
 public function deleteProduct($id){
-    DB::table('menu')->where('id',$id)->delete();
+    DB::table('menus')->where('id',$id)->delete();
     return Redirect::back();
 }
 

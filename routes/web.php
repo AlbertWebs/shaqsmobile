@@ -44,6 +44,7 @@ Route::get('/mobile/verification-code', function () {
     return view('mobile.verification-code');
 });
 
+
 Route::post('/mobile/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
 Route::post('/mobile/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
 Route::post('/mobile/login', [App\Http\Controllers\MobileController::class, 'login'])->name('mobile.login');
@@ -55,7 +56,7 @@ Route::get('/mobile/logout', [App\Http\Controllers\Auth\LoginControllers::class,
 Route::get('/create-api-key', [App\Http\Controllers\MobileController::class, 'createAPIKey'])->name('createAPIKey');
 Route::get('/read-api-key', [App\Http\Controllers\MobileController::class, 'readAPIKey'])->name('readAPIKey');
 
-
+Route::get('/mobile/send-trials', [App\Http\Controllers\HomeController::class, 'sendTrials'])->name('send-trials');
 
 Route::get('/mobile/shopping-cart', function () {
     return view('mobile.shopping-cart');

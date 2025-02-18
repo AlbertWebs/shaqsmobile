@@ -9,6 +9,10 @@ use Hash;
 use DB;
 use App\Models\User;
 use App\Models\Code;
+use App\Models\Menu;
+use App\Models\Category;
+
+
 
 class MobileController extends Controller
 {
@@ -23,12 +27,14 @@ class MobileController extends Controller
     }
 
     public function index(){
-        return view('mobile.home');
+        $Menu = Menu::all();
+        $Category = Category::all();
+        return view('mobile.home', compact('Menu','Category'));
     }
     public function location(Request $request)
     {
-        // $ip = $request->ip();
-        $ip = '197.156.140.165';
+        $ip = $request->ip();
+        // $ip = '197.156.140.165';
         $currentUserInfo = Location::get($ip);
 
         return view('mobile.location', compact('currentUserInfo'));
@@ -36,8 +42,8 @@ class MobileController extends Controller
 
     public function sign_up(Request $request)
     {
-        $ip = $request->ip();
-        // $ip = '197.156.140.165';
+        // $ip = $request->ip();
+        $ip = '197.156.140.165';
         $currentUserInfo = Location::get($ip);
 
         return view('mobile.sign-up', compact('currentUserInfo'));
@@ -117,8 +123,10 @@ class MobileController extends Controller
         // Generate Random Code
         $Code = $this->generateCode();
 
-        $Message = "$Code is Your Shaq's House Verification code";
-        $PhoneNumber = $request->mobile;
+        $Message = "$Code is Your Verification code";
+        $PhoneNumbers = $request->mobile;
+        $PhoneNumber = str_replace("+","",$PhoneNumbers);
+
 
         $this->send($Message,$PhoneNumber);
         return response()->json([
@@ -142,45 +150,51 @@ class MobileController extends Controller
         }
     }
 
-    public function send($Message,$mobile){
+
+    public function send($Message,$phoneNumber){
         $message = $Message;
-        $phone =$mobile;
-        $senderid = "DESIGNEKTA";
+        $phone =$phoneNumber;
+        $senderid = "SHAQSHOUSE";
         //
-        $url = 'https://bulk.cloudrebue.co.ke/api/v1/send-sms';
+        $url = 'https://portal.zettatel.com/SMSApi/send';
         $token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYnVsay5jbG91ZHJlYnVlLmNvLmtlXC8iLCJhdWQiOiJodHRwczpcL1wvYnVsay5jbG91ZHJlYnVlLmNvLmtlXC8iLCJpYXQiOjE2NTM5Nzc0NTEsImV4cCI6NDgwOTczNzQ1MSwiZGF0YSI6eyJlbWFpbCI6ImluZm9AZGVzaWduZWt0YS5jb20iLCJ1c2VyX2lkIjoiMTQiLCJ1c2VySWQiOiIxNCJ9fQ.N3y4QhqTApKi46YSiHmkaoEctO9z6Poc4k1g44ToyjA";
 
             $post_data=array(
             'sender'=>$senderid,
             'phone'=>$phone,
-            'correlator'=>'Whatever',
+            'correlator'=>'Verification',
             'link_id'=>null,
             'message'=>$message
             );
 
-        $data_string = json_encode($post_data);
-        $ch = curl_init( $url );
-        curl_setopt( $ch, CURLOPT_POST, 1);
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt( $ch, CURLOPT_HEADER, 0);
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER,
-            array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization:Bearer '.$token,
-                'Content-Length: ' . strlen($data_string)
-                )
-            );
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://portal.zettatel.com/SMSApi/send",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "userid=shaqshouse&password=vB4xy3eY&sendMethod=quick&mobile=+$phone&msg=$message&senderid=$senderid&msgType=text&duplicatecheck=true&output=json",
+                CURLOPT_HTTPHEADER => array(
+                    "apikey: e9d00bd511565ce0a7cfc40fe779bc9d33fdc737",
+                    "cache-control: no-cache",
+                    "content-type: application/x-www-form-urlencoded"
+                ),
+            ));
 
-        $response = curl_exec($ch);
-        curl_close($ch);
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+            // dd($response);
+            return response()->json($response);
     }
 
-    public function sendSMS($Message,$TheStudent){
-        $message = $Message;
-        $phone =$TheStudent;
+    public function sendTrials($Message,$phoneNumber){
+        $message = "This is a test message";
+        $phone ="254723014032";
         $senderid = "SHAQSHOUSE";
         //
         $url = 'https://portal.zettatel.com/SMSApi/send';
@@ -203,7 +217,7 @@ class MobileController extends Controller
                 CURLOPT_TIMEOUT => 30,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => "userid=shaqshouse&password=vB4xy3eY&sendMethod=quick&mobile=+$phone&msg=$message&senderid=GTC-COLLEGE&msgType=text&duplicatecheck=true&output=json",
+                CURLOPT_POSTFIELDS => "userid=shaqshouse&password=vB4xy3eY&sendMethod=quick&mobile=+$phone&msg=$message&senderid=$senderid&msgType=text&duplicatecheck=true&output=json",
                 CURLOPT_HTTPHEADER => array(
                     "apikey: e9d00bd511565ce0a7cfc40fe779bc9d33fdc737",
                     "cache-control: no-cache",
