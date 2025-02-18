@@ -25,89 +25,63 @@ Route::get('/', function () {
     return view('shaqshouse.index');
 });
 
-// Route::get('/', function () {
-//     return view('front.index');
+
+
+// Route::post('/mobile/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
+// Route::post('/mobile/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
+// Route::post('/mobile/login', [App\Http\Controllers\MobileController::class, 'login'])->name('mobile.login');
+// Route::post('/mobile/sign-up', [App\Http\Controllers\MobileController::class, 'sign_up_post'])->name('mobile.login');
+// Route::get('/mobile/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('mobile.home');
+// Route::get('/mobile/location', [App\Http\Controllers\MobileController::class, 'location'])->name('mobile.location');
+// Route::get('/mobile/sign-up', [App\Http\Controllers\MobileController::class, 'sign_up'])->name('mobile.sign-up');
+// Route::get('/mobile/logout', [App\Http\Controllers\Auth\LoginControllers::class, 'logout']);
+// Route::get('/create-api-key', [App\Http\Controllers\MobileController::class, 'createAPIKey'])->name('createAPIKey');
+// Route::get('/read-api-key', [App\Http\Controllers\MobileController::class, 'readAPIKey'])->name('readAPIKey');
+
+// Route::get('/mobile/send-trials', [App\Http\Controllers\HomeController::class, 'sendTrials'])->name('send-trials');
+
+// Route::get('/mobile/shopping-cart', function () {
+//     return view('mobile.shopping-cart');
 // });
-Route::get('/mobile', function () {
-    return view('mobile.index');
-});
-// Route::get('/mobile/get-started', function () {
-//     return view('mobile.home');
+
+// Route::get('/mobile/menu', function () {
+//     $Menu = \App\Models\Menu::all();
+//     return view('mobile.menu', compact('Menu'));
 // });
 
-Route::get('/mobile/sign-in', function () {
-    return view('mobile.sign-in');
-});
+// Route::get('/mobile/search', function () {
+//     return view('mobile.search');
+// });
 
-Route::get('/mobile/veryfy-number', function () {
-    return view('mobile.veryfy-number');
-});
+// Route::get('/mobile/checkout', function () {
+//     return view('mobile.checkout');
+// });
 
-Route::get('/mobile/verification-code', function () {
-    return view('mobile.verification-code');
-});
+// Route::get('/mobile/menu/details', function () {
+//     return view('mobile.details');
+// });
+
+// Route::get('/mobile/profile', function () {
+//     return view('mobile.profile');
+// });
+
+// Route::get('/mobile/edit-profile', function () {
+//     return view('mobile.edit-profile');
+// });
+
+// Route::get('/mobile/offers', function () {
+//     return view('mobile.offers');
+// });
+
+// Route::get('/mobile/profile/transactions', function () {
+//     return view('mobile.transactions');
+// });
+
+// Route::get('/mobile/profile/orders', function () {
+//     return view('mobile.orders');
+// });
 
 
-Route::post('/mobile/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
-Route::post('/mobile/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
-Route::post('/mobile/login', [App\Http\Controllers\MobileController::class, 'login'])->name('mobile.login');
-Route::post('/mobile/sign-up', [App\Http\Controllers\MobileController::class, 'sign_up_post'])->name('mobile.login');
-Route::get('/mobile/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('mobile.home');
-Route::get('/mobile/location', [App\Http\Controllers\MobileController::class, 'location'])->name('mobile.location');
-Route::get('/mobile/sign-up', [App\Http\Controllers\MobileController::class, 'sign_up'])->name('mobile.sign-up');
-Route::get('/mobile/logout', [App\Http\Controllers\Auth\LoginControllers::class, 'logout']);
-Route::get('/create-api-key', [App\Http\Controllers\MobileController::class, 'createAPIKey'])->name('createAPIKey');
-Route::get('/read-api-key', [App\Http\Controllers\MobileController::class, 'readAPIKey'])->name('readAPIKey');
-
-Route::get('/mobile/send-trials', [App\Http\Controllers\HomeController::class, 'sendTrials'])->name('send-trials');
-
-Route::get('/mobile/shopping-cart', function () {
-    return view('mobile.shopping-cart');
-});
-
-Route::get('/mobile/menu', function () {
-    $Menu = \App\Models\Menu::all();
-    return view('mobile.menu', compact('Menu'));
-});
-
-Route::get('/mobile/search', function () {
-    return view('mobile.search');
-});
-
-Route::get('/mobile/checkout', function () {
-    return view('mobile.checkout');
-});
-
-Route::get('/mobile/menu/details', function () {
-    return view('mobile.details');
-});
-
-Route::get('/mobile/profile', function () {
-    return view('mobile.profile');
-});
-
-Route::get('/mobile/edit-profile', function () {
-    return view('mobile.edit-profile');
-});
-
-Route::get('/mobile/offers', function () {
-    return view('mobile.offers');
-});
-
-Route::get('/mobile/profile/transactions', function () {
-    return view('mobile.transactions');
-});
-
-Route::get('/mobile/profile/orders', function () {
-    return view('mobile.orders');
-});
-
-// SocialMedia
-Route::get('/facebook', [LoginController::class, 'facebook']);
-Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
-Route::get('/google', [LoginController::class, 'google']);
-Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
-// End Duplicate
 
 Route::get('/', function () {
     return view('shaqshouse.index');
@@ -393,3 +367,57 @@ Route::group(['prefix'=>'admin'], function(){
 
     });
 
+    Auth::routes();
+    Route::group(['prefix'=>'mobile'], function(){
+
+        // SocialMedia
+        Route::get('/facebook', [LoginController::class, 'facebook']);
+        Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+        Route::get('/google', [LoginController::class, 'google']);
+        Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
+
+        Route::get('/', [App\Http\Controllers\MobileLoginController::class, 'index'])->name('index');
+        // search post route
+        Route::post('/search', [App\Http\Controllers\MobileController::class, 'search_menu'])->name('search-menu');
+        Route::get('/veryfy-number', [App\Http\Controllers\MobileController::class, 'veryfy_number'])->name('veryfy-number');
+        Route::get('/verification-code', [App\Http\Controllers\MobileController::class, 'verification_code'])->name('verification-code');
+        Route::get('/sign-in', [App\Http\Controllers\MobileLoginController::class, 'sign_in'])->name('sign-in');
+        Route::post('/update-profile', [App\Http\Controllers\MobileController::class, 'update_profile'])->name('update-profile');
+        Route::post('/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
+        Route::post('/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
+        Route::post('/login', [App\Http\Controllers\MobileLoginController::class, 'login'])->name('mobile.login');
+        Route::post('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up_post'])->name('mobile.login');
+        Route::get('/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
+        Route::get('/location', [App\Http\Controllers\MobileController::class, 'location'])->name('mobile.location');
+        Route::get('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up'])->name('mobile.sign-up');
+        Route::get('/forgot-password', [App\Http\Controllers\MobileLoginController::class, 'forgot_password'])->name('mobile.forgot-password');
+        Route::get('/email-success', [App\Http\Controllers\MobileLoginController::class, 'email_success'])->name('mobile.email-success');
+
+
+        Route::get('/logout', [App\Http\Controllers\MobileLoginController::class, 'logouts']);
+        Route::get('/menu', [App\Http\Controllers\MobileController::class, 'menus'])->name('menu');
+        Route::get('/menus/{slung}', [App\Http\Controllers\MobileController::class, 'menu'])->name('menu');
+        Route::get('/menu/{slung}', [App\Http\Controllers\MobileController::class, 'category'])->name('category');
+        Route::get('/edit-profile-pic', [App\Http\Controllers\MobileController::class, 'edit_profile_pic'])->name('edit-profile-pic');
+        Route::post('/edit-profile-pic', [App\Http\Controllers\MobileController::class, 'edit_profile_pic_post'])->name('edit-profile-pic-post');
+        Route::get('/search', [App\Http\Controllers\MobileController::class, 'search'])->name('search');
+        Route::get('/shopping-cart', [App\Http\Controllers\MobileController::class, 'shopping_cart'])->name('cart.list.mobile');
+        Route::get('/shopping-cart/add-to-cart/{id}', [App\Http\Controllers\MobileController::class, 'add_to_cart'])->name('add-to-cart');
+        Route::get('/shopping-cart/remove/{id}', [MobileController::class, 'removeCart'])->name('cart.remove.mobile');
+        Route::get('/checkout', [App\Http\Controllers\MobileController::class, 'checkout'])->name('checkout');
+        Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');
+        Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');
+        Route::get('/food', [App\Http\Controllers\MobileController::class, 'food'])->name('food');
+
+        Route::get('/get-menu', [App\Http\Controllers\MobileController::class, 'getMenu'])->name('getMenu');
+        Route::group(['prefix'=>'profile'], function(){
+            Route::get('/', [App\Http\Controllers\MobileController::class, 'profile'])->name('profile');
+            Route::get('/edit-profile', [App\Http\Controllers\MobileController::class, 'edit_profile'])->name('edit-profile');
+            Route::get('/transactions', [App\Http\Controllers\MobileController::class, 'transactions'])->name('transactions');
+            Route::get('/orders', [App\Http\Controllers\MobileController::class, 'orders'])->name('orders');
+            Route::get('/orders/place-orders', [App\Http\Controllers\MobileController::class, 'place_orders'])->name('place-orders');
+            Route::get('/orders/{id}', [App\Http\Controllers\MobileController::class, 'orders_details'])->name('orders-details');
+            Route::get('/orders/re-order/{id}', [App\Http\Controllers\MobileController::class, 'orders_re_order'])->name('orders-re-order');
+            Route::get('/orders/mailClient', [App\Http\Controllers\MobileController::class, 'mailClient'])->name('orders-mailClient');
+        });
+    });
