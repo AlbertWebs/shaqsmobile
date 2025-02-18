@@ -140,7 +140,7 @@
                                             <!-- teaser line 2 start -->
                                             <div class="teaser-text-animation">
                                                 <h3>
-                                                    <span class="teaser-normal">Shaq's</span> <span class="teaser-highlight">Bytes</span>
+                                                    <span class="teaser-normal">Shaq's</span> <span class="teaser-highlight">Bites</span>
                                                 </h3>
                                             </div><!-- teaser line 2 end -->
                                             <!-- teaser line 3 start -->
