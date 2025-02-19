@@ -29,10 +29,10 @@ class MobileController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index(){
 
@@ -592,32 +592,24 @@ class MobileController extends Controller
     public function customerMpesaSTKPushCallBack(Request $request){
         Log::info($request->getContent());
         $content=json_decode($request->getContent(), true);
+        $CheckoutRequestID = $content['Body']['stkCallback']['CheckoutRequestID'];
+        $MerchantRequestID = $content['Body']['stkCallback']['MerchantRequestID'];
 
+        $nameArr = [];
+        foreach ($content['Body']['stkCallback']['CallbackMetadata']['Item'] as $row) {
 
-            $nameArr = [];
-            foreach ($content['Body']['stkCallback']['CallbackMetadata']['Item'] as $row) {
-
-                if(empty($row['Value'])){
-                    continue;
-                }
-                $nameArr[$row['Name']] = $row['Value'];
-                // addUserID
+            if(empty($row['Value'])){
+                continue;
             }
-            DB::table('lnmo_api_response')->insert($nameArr);
-            $LastRecord = DB::table('lnmo_api_response')->orderBy('lnmoID','desc')->first();
-            foreach($LastRecord as $Last){
-                $updateDetails = array(
-                    'user_id' => Auth::user()->id,
-                );
-                DB::table('lnmo_api_response')->where('id',$Last->lnmoID)->update($updateDetails);
-            }
-        Log::info($request->getContent());
+            $nameArr[$row['Name']] = $row['Value'];
+        }
 
-        // Responding to the confirmation request
-        $response = new Response;
-        $response->headers->set("Content-Type","text/xml; charset=utf-8");
-        $response->setContent(json_encode(["STKPUSHPaymentConfirmationResult"=>"Success"]));
-        return $response;
+        DB::table('lnmo_api_response')->where('MerchantRequestID',$MerchantRequestID)->update($nameArr);
+        $updateStatus = array(
+            'status' =>1
+        );
+        DB::table('lnmo_api_response')->where('MerchantRequestID',$MerchantRequestID)->update($updateStatus);
+        return response()->json(['message' => 'CallBack Received successfully!']);
     }
 
     public function stk_push(Request $request){

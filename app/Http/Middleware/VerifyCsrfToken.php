@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/mobile/stk-call-back'
+        '/mobile/stk-call-back',
+        '/stk-callback'
     ];
 }
