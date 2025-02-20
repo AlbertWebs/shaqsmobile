@@ -657,7 +657,7 @@ class MobileController extends Controller
 
     public function stk_push(Request $request){
 
-        $amount = "1";
+        $amount = $request->amount;
         $mobile = $request->mobile;
         Log::info("$mobile Initiated STK Push for amout $amount");
 
@@ -722,6 +722,9 @@ class MobileController extends Controller
         // SMS KETTLE HOUSE
         $smsMessage = "Dear $user_name Thanks for your order! We are firing up the grill. Your Meal will be ready in 25-30 minutes Fresh and delicious!";
         $this->send(str_replace( '+', '', $request->mobile),$smsMessage);
+        $Admin = "+254706788440";
+        $AdminMessage = "You have a new order from $user_name;";
+        $this->send(str_replace( '+', '', $Admin),$AdminMessage);
         // Clear Cart
         \Cart::clear();
         return response()->json([

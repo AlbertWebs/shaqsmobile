@@ -1,12 +1,12 @@
 {
-    "name": "Shaqs",
-    "short_name": "Shaqs",
+    "name": "Shaq's Bites",
+    "short_name": "Shaq's",
     "lang": "en-US",
-    "start_url": ".",
+    "start_url": "/get-started",
     "display": "standalone",
     "background_color": "white",
     "theme_color": "#0baf9a",
-    "description": "Shaqs House App",
+    "description": "Shaq's Bites App",
     "icons": [
       {
         "src": "favicon/android-icon-48x48.png",
