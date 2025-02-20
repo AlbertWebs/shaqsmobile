@@ -221,6 +221,7 @@ ga('send', 'pageview');
 
     $( ".order-btn" ).click(function(event) {
         event.preventDefault();
+        $(".loading-img").show();
         var productID = $(this).attr('id');
         var host = window.location.protocol + "//" + window.location.host + "/mobile/shopping-cart/add-to-cart/" + productID;
         $.ajax({
@@ -232,7 +233,9 @@ ga('send', 'pageview');
               setInterval(function() {
                 $('#myCart').load(location.href + ' #myCart');
               }, 1000); // 60000 = 1 minute
+              $(".loading-img").hide();
               alert(response);
+
             },
             error: function(xhr, status, error) {
               // Handle the error
