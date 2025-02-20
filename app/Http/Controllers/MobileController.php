@@ -656,7 +656,6 @@ class MobileController extends Controller
     }
 
     public function stk_push(Request $request){
-
         $amount = $request->amount;
         $mobile = $request->mobile;
         Log::info("$mobile Initiated STK Push for amout $amount");
@@ -701,13 +700,15 @@ class MobileController extends Controller
         $mpesa_transaction->save();
 
 
+
         $STKMpesaTransaction = new STKMpesaTransaction;
         $STKMpesaTransaction->user_id = Auth::User()->id;
         $STKMpesaTransaction->CheckoutRequestID = $curl_content->CheckoutRequestID;
         $STKMpesaTransaction->MerchantRequestID = $MerchantRequestID;
         $STKMpesaTransaction->PhoneNumber = $phoneNumber;
+        $STKMpesaTransaction->orders = $phoneNumber;
         $STKMpesaTransaction->Amount = $AmountSTK;
-        $STKMpesaTransaction->checkout = $request->cartItems;
+        $STKMpesaTransaction->checkout = \Cart::getContent();
         $STKMpesaTransaction->save();
 
         Log::info($curl_response);

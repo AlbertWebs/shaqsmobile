@@ -22,30 +22,36 @@
     <p class="text-white-50 mb-0">Here is your all Transaction history</p>
  </section>
  <section class="search p-3 bg-light body_rounded mt-n5">
-    <p class="text-muted mb-4">29 Aug 2022</p>
+    <p class="text-muted mb-4">{{today()}}</p>
+    @foreach ($lnmo_api_response as $lnmr)
     <div class="d-flex align-items-center border-bottom pb-3 mb-3">
-       <div>
-          <p class="mb-0">Payment For Street Burger</p>
-          <span class="text-muted small">02:16PM, 29 Aug 2022</span>
-       </div>
-       <div class="ml-auto"><span class="bg-danger fs-5 text-white fw-bold rounded px-2 py-1">kes 14.00</span></div>
-    </div>
-    <div class="d-flex align-items-center border-bottom pb-3 mb-3">
-       <div>
-          <p class="mb-0">Payment For Luchi</p>
-          <span class="text-muted small">02:16PM, 29 Aug 2022</span>
-       </div>
-       <div class="ml-auto"><span class="bg-danger fs-5 text-white fw-bold rounded px-2 py-1">kes 80.00</span></div>
-    </div>
+        <div>
+            <?php
+                $jsonData  =  $lnmr->checkout;
+                $data = json_decode($jsonData, true);
+                // dd($data);
+            ?>
+           <p class="mb-0"><strong>Payment For:</strong> </p>
+            @foreach ($data as $items)
+            <p class="mb-0">{{$items['name']}} - {{$items['quantity']}}</p>
+            @endforeach
+            {{--
+             --}}
 
-    <div class="d-flex align-items-center border-bottom pb-3 mb-3">
-       <div>
-          <p class="mb-0">Payment For Kacchi</p>
-          <span class="text-muted small">02:16PM, 29 Aug 2022</span>
-       </div>
-       <div class="ml-auto"><span class="bg-danger fs-5 text-white fw-bold rounded px-2 py-1">kes 4.00</span></div>
-    </div>
+             @if($lnmr->MpesaReceiptNumber == null)
+               <p class="text-danger">Pending Payment</p>
+             @else
+               <p class="text-success"><strong>{{$lnmr->MpesaReceiptNumber}}</strong></p>
+             @endif
+           <span class="text-muted small">{{$lnmr->TransactionDate}}</span>
+        </div>
+        <div class="ml-auto"><span class="bg-danger fs-5 text-white fw-bold rounded px-2 py-1">kes {{$lnmr->Amount}}</span></div>
+     </div>
+    @endforeach
+
+
  </section>
 
+ @include('mobile.horizontal-nav')
  @include('mobile.main-nav')
 @endsection

@@ -27,4 +27,19 @@ function timeAgo($timestamp){
 $timemsg = $timemsg.' ago';
 return $timemsg;
 }
+
+// create a helpers.php file under /app for example
+function array_keys_multi(array $array)
+{
+    $keys = array();
+    foreach ($array as $key => $value) {
+        $keys[] = $key;
+        if (is_array($array[$key])) {
+            $keys = array_merge($keys, array_keys_multi($array[$key]));
+        }
+    }
+    return $keys;
+}
 ?>
+
+
