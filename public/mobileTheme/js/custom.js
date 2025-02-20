@@ -228,7 +228,10 @@ ga('send', 'pageview');
             method: "GET",
             success: function(response) {
               // Handle the successful response
-              $("#myCart").load(location.href + " #myCart");
+            //   $("#myCart").load(location.href + " #myCart");
+              setInterval(function() {
+                $('#myCart').load(location.href + ' #myCart');
+              }, 1000); // 60000 = 1 minute
               alert(response);
             },
             error: function(xhr, status, error) {

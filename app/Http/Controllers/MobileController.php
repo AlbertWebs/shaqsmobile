@@ -308,7 +308,7 @@ class MobileController extends Controller
 
 
 
-     public function send($Message,$phoneNumber){
+     public function send($phoneNumber,$Message){
         $message = $Message;
         $phone =$phoneNumber;
         $senderid = "SHAQSHOUSE";
@@ -496,8 +496,9 @@ class MobileController extends Controller
 
     public function generateAccessToken()
     {
-        $consumer_key=env('MPESA_CONSUMER_KEY');
-        $consumer_secret=env('MPESA_CONSUMER_SECRET');
+        $consumer_key = config('mpesa.consumer_key');
+        $consumer_secret = config('mpesa.consumer_secret');
+
 
         $credentials = base64_encode($consumer_key.":".$consumer_secret);
         $url = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
@@ -669,15 +670,15 @@ class MobileController extends Controller
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer '.$this->generateAccessToken()));
         $curl_post_data = [
             //Fill in the request parameters with valid values
-            'BusinessShortCode' => env('BUSINESSSHORTCODE'),
+            'BusinessShortCode' => config('mpesa.businessshortcode'),
             'Password' => $this->lipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => $AmountSTK,
             'PartyA' => $phoneNumber, // replace this with your phone number
-            'PartyB' => env('STKPARTYB'),
+            'PartyB' => config('mpesa.stkpartyb'),
             'PhoneNumber' => $phoneNumber, // replace this with your phone number
-            'CallBackURL' => env('STK_CALLBACKURL'),
+            'CallBackURL' => config('mpesa.stk_callback'),
             'AccountReference' => "Shaqs House Limited",
             'TransactionDesc' => "TEST"
         ];
@@ -686,6 +687,7 @@ class MobileController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
         $curl_response = curl_exec($curl);
+        // dd($curl_response);
 
         // Insert MerchantRequestID
         $curl_content=json_decode($curl_response);
@@ -712,20 +714,18 @@ class MobileController extends Controller
 
         $CheckoutRequestID = $curl_content->CheckoutRequestID;
         $user_id = Auth::User()->id;
+        $user_name = Auth::User()->name;
         $table = 'lnmo_api_response';
-        return $this->checklast($CheckoutRequestID,$curl_response,$user_id);
+        $this->checklast($CheckoutRequestID,$curl_response,$user_id);
         // Place Order.
         orders::createOrder();
-
         // SMS KETTLE HOUSE
-
-
+        $smsMessage = "Dear $user_name Thanks for your order! We are firing up the grill. Your Meal will be ready in 25-30 minutes Fresh and delicious!";
+        $this->send(str_replace( '+', '', $request->mobile),$smsMessage);
         // Clear Cart
         \Cart::clear();
         return response()->json([
             "message" => "Success"
         ]);
     }
-
-
 }

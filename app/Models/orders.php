@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 use App\Models\orders;
+use App\Models\Menu;
 
 use App\Notifications;
 
@@ -16,9 +17,7 @@ class orders extends Model
 {
     protected $fillable=['total', 'status'];
     public function orderFields(){
-
-        return $this->belongsToMany(products::class)->withPivot('qty', 'total');
-
+        return $this->belongsToMany(Menu::class)->withPivot('qty', 'total');
     }
 
     public static function createOrder(){

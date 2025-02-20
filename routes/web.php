@@ -48,6 +48,8 @@ Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'cus
 
 // Route::get('/mobile/send-trials', [App\Http\Controllers\HomeController::class, 'sendTrials'])->name('send-trials');
 
+Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
+
 // Route::get('/mobile/shopping-cart', function () {
 //     return view('mobile.shopping-cart');
 // });
@@ -407,6 +409,9 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up'])->name('mobile.sign-up');
         Route::get('/forgot-password', [App\Http\Controllers\MobileLoginController::class, 'forgot_password'])->name('mobile.forgot-password');
         Route::get('/email-success', [App\Http\Controllers\MobileLoginController::class, 'email_success'])->name('mobile.email-success');
+
+
+        // Route::post('/search', [App\Http\Controllers\MobileController::class, 'generateAccessToken'])->name('search-menu');
 
 
         Route::get('/logout', [App\Http\Controllers\MobileLoginController::class, 'logouts']);

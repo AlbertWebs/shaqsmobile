@@ -26,7 +26,7 @@
         @foreach ($Order as $order)
             <div class="order_detail col-2 order_detail-2 mb-2 bg-dark p-1 box_rounded text-white text-center">
                 <strong>
-                    {{$order->order_number}}
+                    BITES#{{$order->id}}
                 </strong>
             </div>
             <?php $Product = DB::table('menu_orders')->where('orders_id',$order->id)->get();  ?>
@@ -36,14 +36,13 @@
                 <div class="order_detail order_detail-2 mb-2 bg-light p-3 box_rounded">
                     <a href="{{url('/')}}/mobile/profile/orders/{{$order->id}}" class="d-flex align-items-center pb-3">
                     <div class="bg-white box_rounded">
-                        <img src="{{url('/')}}/uploads/menu/{{$pro->thumbnail}}" class="img-fluid rounded">
+                        <img src="{{url('/')}}/uploads/menu/{{$pro->image}}" class="img-fluid rounded">
                     </div>
                     <div class="ml-3 d-flex w-100">
                         <div class="text-dark">
                             <p class="mb-1 fw-bold">{{$pro->title}}</p>
                             <p class="small text-muted mb-0"> {{date('D' , strtotime($order->created_at))}} {{date('d' , strtotime($order->created_at))}} {{date('M' , strtotime($order->created_at))}}, {{date('Y' , strtotime($order->created_at))}} <span class="ml-1"><i class="mdi mdi-circle-medium mr-1"></i>{{date('H:i' , strtotime($order->created_at))}}</span></p>
                         </div>
-
                     </div>
                     </a>
 
@@ -56,7 +55,7 @@
                 @if($order->status == "completed")
                    <a onclick="return confirm('Reorder This Now?')" data-url="{{url('/')}}/mobile/profile/orders/re-order/{{$order->id}}" class="btn btn-primary btn-block mr-1 box_rounded w-50 btn-sm py-2 re-order">Reorder <span style="visibility: hidden" class="spinner-border spinner-border-sm" role="status"></span></a>
                 @elseif($order->status == "confirmed")
-                <a href="whatsapp://send?text=Tracking My Order Number:{{$order->order_number}}&phone=+254706788440" class="btn btn-outline-primary btn-block ml-1 box_rounded w-50 btn-sm py-2"><span class="mdi mdi-whatsapp"></span> Track Order</a>
+                <a href="whatsapp://send?text=Tracking My Order Number:BITES{{$order->id}}&phone=+254706788440" class="btn btn-outline-primary btn-block ml-1 box_rounded w-50 btn-sm py-2"><span class="mdi mdi-whatsapp"></span> Track Order</a>
                 @endif
 
 
@@ -74,5 +73,5 @@
 
  </section>
 @include('mobile.main-nav')
-{{-- @include('mobile.horizontal-nav') --}}
+@include('mobile.horizontal-nav')
 @endsection
