@@ -35,11 +35,12 @@ Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('stk-callback');
 Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
 // Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
-Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
+
 
 
 
 Auth::routes();
+Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
 Route::group(['prefix'=>'chomazone'], function(){
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
         // Route::get('/menu', [App\Http\Controllers\HomeController::class, 'menu'])->name('menu');
@@ -312,7 +313,7 @@ Route::group(['prefix'=>'admin'], function(){
     Route::get('/mailSubscriber/{email}', [AdminsController::class, 'mailSubscriber']);
     Route::get('/deleteSubscriber/{id}', [AdminsController::class, 'deleteSubscriber']);
 
-    });
+});
 
 
 
