@@ -1,67 +1,88 @@
-@extends('mobile.master-sign')
+@extends('front.master')
 
 @section('content')
-<div class="d-flex align-items-center p-3 gurdeep-osahan-inner-header position-absolute w-100">
-    <div class="left mr-auto">
-       <a href="{{url('/')}}/mobile/" class="back_button box_rounded bg-white text-danger btn btn-sm shadow-sm">Skip</a>
-    </div>
-    <div class="center mx-auto"></div>
-    <div class="right ml-auto d-flex align-items-center">
-       <a class="toggle btn_detail bg-danger shadow-sm text-white" href="#">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-          </svg>
-       </a>
-    </div>
- </div>
- <div>
-    <section class="position-relative">
-       <span class="position-absolute title_sign text-white text-center">
-       <a href="{{url('/')}}/mobile">
-       <img src="{{asset('uploads/VENSHAQ001-41.png')}}" class="height-70" alt="logos" />
-       </a>
-       </span>
-       <img src="{{asset('mobileTheme/img/covertop.jpg')}}" class="img-fluid">
-    </section>
-    <section class="bg-white body_rounded mt-n5 position-relative p-4">
-       <h1>Welcome!</h1>
-       <p class="text-muted">Sign in continue</p>
-       <form class="" action="{{url('/')}}/mobile/login" id="submitLogin">
-          @csrf
-          <div class="d-flex align-items-center mb-3">
-             <span class="mdi mdi-email-outline box_rounded p-2 btn btn-light mr-3 text-primary"></span>
-             <div class="form-floating border-bottom w-100">
-                <input type="email" class="form-control border-0 pl-0" id="floatingInputValue" placeholder="name@example.com" name="email">
-                <label for="floatingInputValue" class="pl-0">EMAIL</label>
-             </div>
-          </div>
-          <div class="d-flex align-items-center mb-3">
-             <span class="mdi mdi-key-variant box_rounded p-2 btn btn-light mr-3 text-primary"></span>
-             <div class="form-floating border-bottom w-100">
-                <input type="password" class="form-control border-0 pl-0" id="floatingInputValue" placeholder="name@example.com" name="password">
-                <label for="floatingInputValue" class="pl-0">PASSWORD</label>
-             </div>
-          </div>
-          <button type="submit" class="mt-4 btn btn-outline-primary py-3 box_rounded w-100">Sign in</button>
-          <br>
-          <div class="text-center">
-            <img width="30" src="{{asset('/mobileTheme/img/loading.gif')}}" class="loading-img">
-         </div>
-          {{-- <a href="{{url('/')}}/mobile/veryfy-number" class="mt-4 btn btn-outline-primary py-3 box_rounded w-100">Sign in</a> --}}
-          <p class="text-center mt-4"><a href="#" class="text-muted">OR</a></p>
-          <p class="text-center mt-4">
-                <a style="background-color: #4267B2; color:#ffffff" href="{{url('/')}}/mobile/facebook" class="btn btn-outline-primary btn-sm px-3 rounded-3 mr-2 text-center"><span class="mdi mdi-facebook"></span>  Facebook Sign Up</a>
-                <a style="background-color: #DB4437; color:#ffffff" href="{{url('/')}}/mobile/google" class="btn btn-outline-primary btn-sm px-3 rounded-3 mr-2 text-center"><span class="mdi mdi-google"></span>  Google Sign Up</a>
-          </p>
-          {{-- <p class="text-center mt-4"><a href="forgot_password.html" class="text-muted">Forgot password?</a></p> --}}
-          <a href="{{url('/')}}/mobile/sign-up" class="mt-5 btn btn-primary py-3 box_rounded w-100">Create an account</a>
-       </form>
-    </section>
- </div>
- @include('mobile.main-nav')
- <script>
-$( document ).ready(function() {
-  alert('Update')
-});
-</script>
+	<!-- Login Page Section -->
+	<section class="login-page-section" style="background-image: url(images/background/pattern-11.png)">
+		<div class="auto-container">
+			<div class="inner-container">
+				<!-- Sec Title -->
+				<div class="sec-title centered">
+					<div class="title">Login</div>
+					<h2>Login Now</h2>
+					{{-- <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh nulla, fermentum quis scelerisque quis.</div> --}}
+				</div>
+
+				<!-- Login Form -->
+				<div class="styled-form">
+					<form method="post" action="{{ route('login') }}">
+                        @csrf
+						<div class="form-group">
+							{{-- <input type="text" name="email" value="" placeholder="Email Address" required> --}}
+                            <input id="email" type="email" placeholder="Email Address" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+						</div>
+
+						<div class="form-group">
+							<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+						</div>
+
+						<div class="form-group">
+							<div class="clearfix">
+								<div class="pull-left">
+									<div class="check-box">
+										<input type="checkbox" name="remember-password" id="type-1" {{ old('remember') ? 'checked' : '' }}>
+										<label for="type-1">Remember password</label>
+									</div>
+								</div>
+								<div class="pull-right">
+									<a href="{{ route('password.request') }}" class="forgot">Lost my password?</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group text-center">
+							<button type="submit" class="theme-btn btn-style-three"><span class="txt">Log In</span></button>
+						</div>
+
+						<div class="form-group">
+							<div class="or">or</div>
+						</div>
+
+						<div class="form-group">
+							<div class="btns-box">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <a class="social-btn facebook-btn" href="{{url('/')}}/facebook"><span class="social-icon fa fa-facebook-f"></span>Sign In with Facebook</a>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a class="social-btn google-btn" href="{{url('/')}}/google"><span class="social-icon fa fa-google"></span>Sign In with Google</a>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="users">Not a Member? <a href="{{ route('register') }}">Register Now</a></div>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- End Login Page Section -->
+
+@include('front.instagram')
 @endsection
