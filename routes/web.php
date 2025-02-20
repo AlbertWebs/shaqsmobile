@@ -35,7 +35,7 @@ Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('stk-callback');
 Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
 // Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
-// Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
+Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
 
 
 
@@ -341,7 +341,7 @@ Route::group(['prefix'=>'admin'], function(){
         Route::post('/stk-push', [App\Http\Controllers\MobileController::class, 'stk_push'])->name('stk-push');
 
         Route::get('/send-verification-test', [App\Http\Controllers\MobileController::class, 'send_verification_test'])->name('send-verification-test');
-        Route::post('/login', [App\Http\Controllers\MobileLoginController::class, 'login'])->name('mobile.login');
+        Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('mobile.login');
         Route::post('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up_post'])->name('mobile.signup.post');
         Route::get('/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
         Route::get('/location', [App\Http\Controllers\MobileController::class, 'location'])->name('mobile.location');
