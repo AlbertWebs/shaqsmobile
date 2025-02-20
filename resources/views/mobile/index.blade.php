@@ -1,4 +1,4 @@
-@extends('mobile.master')
+@extends('mobile.master-landing')
 
 @section('content')
 <div class="osahan-index">

@@ -51,131 +51,37 @@ Version: 1.0
 
 
 
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+    (function(i,s,o,g,r,a,m){
+        i['GoogleAnalyticsObject']=r;
+        i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)
+        }, i[r].l=1*new Date();
+        a=s.createElement(o), m=s.getElementsByTagName(o)[0];
+        a.async=1; a.src='https://www.google-analytics.com/analytics.js';
+        m.parentNode.insertBefore(a,m)
+    })(window,document,'script','','ga');
 
 ga('create', 'UA-120909275-a1', 'auto');
 ga('send', 'pageview');
 
-      // index_slider
-      $(document).ready(function(){
-        $('.index_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            dots: true
-        });
-      });
+$(document).ready(function(){
+    $('.index_slider').slick({ infinite: true, arrows: true, slidesToShow: 1, slidesToScroll: 1, dots: true });
+    $('.yum_slider').slick({ infinite: false, arrows: false, slidesToShow: 2.4, slidesToScroll: 1 });
+    $('.new_slider').slick({ infinite: false, arrows: false, slidesToShow: 2, slidesToScroll: 1 });
+    $('.fav_slider').slick({ infinite: false, arrows: false, slidesToShow: 1, slidesToScroll: 0.3 });
+    $('.featured_slider').slick({ infinite: false, arrows: false, slidesToShow: 1.2, slidesToScroll: 1 });
+    $('.near_slider').slick({ infinite: false, arrows: false, slidesToShow: 2.4, slidesToScroll: 2 });
+    $('.card_slider').slick({ infinite: false, arrows: false, slidesToShow: 2.5, slidesToScroll: 2 });
+    $('.pay_slider').slick({ infinite: false, arrows: false, slidesToShow: 3.1, slidesToScroll: 2 });
+    $('.nearyou_slider').slick({ infinite: false, arrows: false, slidesToShow: 1.2, slidesToScroll: 1 });
+    $('.detail_slider').slick({ infinite: false, arrows: false, slidesToShow: 1, slidesToScroll: 1, dots: true });
+    $('.tabs_slider').slick({ infinite: false, arrows: false, slidesToShow: 4.2, slidesToScroll: 1 });
+    $(".loading-img").hide();
+});
 
-      // yum_slider
-      $(document).ready(function(){
-        $('.yum_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 2.4,
-            slidesToScroll: 1
-        });
-      });
 
-      // new_slider
-      $(document).ready(function(){
-        $('.new_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 2,
-            slidesToScroll: 1
-        });
-      });
 
-      // fav_slider
-      $(document).ready(function(){
-        $('.fav_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 1,
-            slidesToScroll: 0.3
-        });
-      });
 
-      // featured slider
-      $(document).ready(function(){
-          $('.featured_slider').slick({
-              infinite: false,
-              arrows: false,
-              slidesToShow: 1.2,
-              slidesToScroll: 1
-          });
-        });
-
-      // near_slider
-      $(document).ready(function(){
-          $('.near_slider').slick({
-              infinite: false,
-              arrows: false,
-              slidesToShow: 2.4,
-              slidesToScroll: 2
-          });
-        });
-
-      // card_slider
-      $(document).ready(function(){
-        $('.card_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 2.5,
-            slidesToScroll: 2
-        });
-      });
-
-      // pay_slider
-      $(document).ready(function(){
-        $('.pay_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 3.1,
-            slidesToScroll: 2
-        });
-      });
-
-      // nearyou_slider
-      $(document).ready(function(){
-        $('.nearyou_slider').slick({
-            infinite: false,
-            arrows: false,
-            slidesToShow: 1.2,
-            slidesToScroll: 1
-        });
-      });
-
-      // detail_slider
-      $(document).ready(function(){
-          $('.detail_slider').slick({
-              infinite: false,
-              arrows: false,
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              dots: true
-          });
-      });
-
-      // tabs_slider
-      $(document).ready(function(){
-          $('.tabs_slider').slick({
-              infinite: false,
-              arrows: false,
-              slidesToShow: 4.2,
-              slidesToScroll: 1,
-          });
-      });
-
-      //Login
-    $( document ).ready(function() {
-          $(".loading-img").hide();
-
-    });
 
     $('#submitLogin').submit(function(e) {
         e.preventDefault();
@@ -228,18 +134,14 @@ ga('send', 'pageview');
             url: host,
             method: "GET",
             success: function(response) {
-              // Handle the successful response
-            //   $("#myCart").load(location.href + " #myCart");
-              setInterval(function() {
-                $('#myCart').load(location.href + ' #myCart');
-              }, 1000); // 60000 = 1 minute
-              $(".loading-img").hide();
-              alert(response);
-
+                setTimeout(function() {
+                    $('#myCart').load(location.href + ' #myCart');
+                }, 1000);
+                $(".loading-img").hide();
+                alert(response);
             },
             error: function(xhr, status, error) {
-              // Handle the error
-              alert(response);
+                alert("Error adding item to cart.");
             }
         });
         event.stopImmediatePropagation();
@@ -269,8 +171,7 @@ ga('send', 'pageview');
     });
 
     $('#stk-push').submit(function(e) {
-        // e.preventDefault();
-        e.stopImmediatePropagation();
+        e.preventDefault();
         var actionurl = e.currentTarget.action;
         $(".loading-img").show();
         $.ajax({
