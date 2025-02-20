@@ -73,7 +73,7 @@ Auth::routes();
 Route::group(['prefix'=>'admin'], function(){
 
     Route::get('/', [AdminsController::class, 'index'])->name('admin.home')->middleware('is_admin');
-    Route::get('/home', [AdminsController::class, 'index'])->name('admin.home')->middleware('is_admin');
+    // Route::get('/home', [AdminsController::class, 'index'])->name('admin.home')->middleware('is_admin');
     //Testimonial
     Route::get('/addTestimonial', [AdminsController::class, 'addTestimonial']);
     Route::post('/add_Testimonial', [AdminsController::class, 'add_Testimonial']);
