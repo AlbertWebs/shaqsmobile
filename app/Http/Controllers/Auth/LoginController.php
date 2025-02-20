@@ -37,7 +37,7 @@ class LoginController extends Controller
     {
         $this->performLogout($request);
         Session::flash('message', "You have successfully logged out");
-        return redirect()->route('login');
+        return redirect()->route('get-started');
     }
 
 
