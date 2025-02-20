@@ -79,7 +79,7 @@
     <div class="px-3">
        <div class="title mb-3 d-flex align-items-center">
           <h6 class="mb-0 fw-bold">Menu</h6>
-          <a href="{{url('/')}}/mobile/menu" class="ml-auto"><span class="text-primary">View All</span></a>
+          <a href="{{url('/')}}/mobile/menu" class="ml-auto"><span class="text-primarys theme-color">View All</span></a>
        </div>
        <section class="bg-light body_rounded position-relative row" id="data-wrapper" >
 

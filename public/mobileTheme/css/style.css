@@ -512,3 +512,7 @@ body.index_bg {
     border-radius:5px;
     border:2px solid #f79338;
 }
+
+.theme-color{
+    color:#f79338;
+}
