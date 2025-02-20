@@ -49,6 +49,7 @@ Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'cus
 // Route::get('/mobile/send-trials', [App\Http\Controllers\HomeController::class, 'sendTrials'])->name('send-trials');
 
 Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
+Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
 
 // Route::get('/mobile/shopping-cart', function () {
 //     return view('mobile.shopping-cart');
