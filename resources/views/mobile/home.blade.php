@@ -10,10 +10,10 @@
        <div class="d-flex align-items-center">
           <div class="search_item shadow-sm p-1 input-group bg-white rounded-3 mr-3">
              <span class="input-group-text bg-white mdi mdi-magnify border-0" id="basic-addon1"></span>
-             <form method="GET" action="{{route('search')}}">
-                @csrf
-                <input type="text" class="form-control border-0 bg-white pl-0" name="key" placeholder="Search" aria-label="search" aria-describedby="basic-addon1">
-             </form>
+             <form method="POST" action="{{route('search_post')}}">
+             @csrf
+             <input type="text" class="form-control border-0 bg-white pl-0" name="key" placeholder="Search" aria-label="search" aria-describedby="basic-addon1">
+          </form>
           </div>
           <a class="toggle border-0 btn btn-dark rounded-3 homepage-toggle-btn">
              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
