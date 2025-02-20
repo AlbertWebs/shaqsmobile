@@ -132,6 +132,6 @@ class LoginController extends Controller
     {
         $user = $service->createOrGetUser(Socialite::driver('facebook')->stateless()->user());
         auth()->login($user);
-        return redirect()->to('/apps/home');
+        return redirect()->to('/mobile');
     }
 }

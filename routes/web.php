@@ -34,15 +34,13 @@ Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
 Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('stk-callback');
 Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
-Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
+// Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
 Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
 
 
 
-
+Auth::routes();
 Route::group(['prefix'=>'chomazone'], function(){
-
-
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
         Route::get('/menu', [App\Http\Controllers\HomeController::class, 'menu'])->name('menu');
         Route::get('/menu/{slung}', [App\Http\Controllers\HomeController::class, 'menus'])->name('menus');
@@ -58,8 +56,6 @@ Route::group(['prefix'=>'chomazone'], function(){
         Route::get('/copyright-statement', [App\Http\Controllers\HomeController::class, 'copyright'])->name('copyright');
         Route::get('/delivery-policy', [App\Http\Controllers\HomeController::class, 'delivery'])->name('delivery');
 
-
-        Auth::routes();
         Route::get('/shopping-cart/checkout', [App\Http\Controllers\CheckoutController::class, 'checkout'])->name('checkout');
         Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
         Route::get('/dashboard', [App\Http\Controllers\ClientController::class, 'dashboard'])->name('dashboard');
@@ -69,14 +65,12 @@ Route::group(['prefix'=>'chomazone'], function(){
         Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
         Route::get('/google', [LoginController::class, 'google']);
         Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
-
-    });
+});
 
 
 
 Auth::routes();
 Route::group(['prefix'=>'admin'], function(){
-
 
     Route::get('/', [AdminsController::class, 'index'])->name('admin.home')->middleware('is_admin');
     Route::get('/home', [AdminsController::class, 'index'])->name('admin.home')->middleware('is_admin');
@@ -348,7 +342,7 @@ Route::group(['prefix'=>'admin'], function(){
 
         Route::get('/send-verification-test', [App\Http\Controllers\MobileController::class, 'send_verification_test'])->name('send-verification-test');
         Route::post('/login', [App\Http\Controllers\MobileLoginController::class, 'login'])->name('mobile.login');
-        Route::post('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up_post'])->name('mobile.login');
+        Route::post('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up_post'])->name('mobile.signup.post');
         Route::get('/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
         Route::get('/location', [App\Http\Controllers\MobileController::class, 'location'])->name('mobile.location');
         Route::get('/sign-up', [App\Http\Controllers\MobileLoginController::class, 'sign_up'])->name('mobile.sign-up');
@@ -391,7 +385,7 @@ Route::group(['prefix'=>'admin'], function(){
             Route::get('/orders/{id}', [App\Http\Controllers\MobileController::class, 'orders_details'])->name('orders-details');
             Route::get('/orders/re-order/{id}', [App\Http\Controllers\MobileController::class, 'orders_re_order'])->name('orders-re-order');
             Route::get('/orders/mailClient', [App\Http\Controllers\MobileController::class, 'mailClient'])->name('orders-mailClient');
-        });
+    });
 
         Route::get('/test-stk-push', [App\Http\Controllers\MobileController::class, 'test_stk'])->name('test-stk-push');
     });
