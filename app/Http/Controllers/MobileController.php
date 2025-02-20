@@ -29,17 +29,21 @@ class MobileController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-    public function index(){
+    public function index(Request $request){
 
-        $Menu = DB::table('menus')->limit(12)->get();
+        $Menu = Menu::paginate(4);
+        // $Menu = DB::table('menus')->limit(12)->get();
         $Category = DB::table('category')->get();
         $Orders = DB::table('orders')->where('user_id', Auth::User()->id)->get();
-
+        if ($request->ajax()) {
+            $view = view('mobile.data', compact('Menu'))->render();
+            return response()->json(['html' => $view]);
+        }
 
         return view('mobile.home', compact('Menu','Category','Orders'));
     }
