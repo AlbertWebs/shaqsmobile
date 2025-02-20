@@ -53,8 +53,8 @@ class MobileLoginController extends Controller
         if(Auth::User()){
             return redirect()->route('get-started');
         }else{
-            // $ip = $request->ip();
-            $ip = '197.156.140.165';
+            $ip = $request->ip();
+            // $ip = '197.156.140.165';
             $currentUserInfo = Location::get($ip);
             return view('mobile.sign-up', compact('currentUserInfo'));
         }

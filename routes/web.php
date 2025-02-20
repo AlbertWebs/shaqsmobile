@@ -21,82 +21,24 @@ use App\Http\Controllers\Auth\LoginControllers;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('shaqshouse.index');
-});
 
 Route::get('/menu', function () {
     return view('shaqshouse.menu');
 });
 
-Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
-Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
-Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('stk-callback');
-
-
-
-// Route::post('/mobile/verify', [App\Http\Controllers\MobileController::class, 'verify'])->name('send-verify');
-// Route::post('/mobile/send-verification', [App\Http\Controllers\MobileController::class, 'send_verification'])->name('send-verification');
-// Route::post('/mobile/login', [App\Http\Controllers\MobileController::class, 'login'])->name('mobile.login');
-// Route::post('/mobile/sign-up', [App\Http\Controllers\MobileController::class, 'sign_up_post'])->name('mobile.login');
-// Route::get('/mobile/get-started', [App\Http\Controllers\MobileController::class, 'index'])->name('mobile.home');
-// Route::get('/mobile/location', [App\Http\Controllers\MobileController::class, 'location'])->name('mobile.location');
-// Route::get('/mobile/sign-up', [App\Http\Controllers\MobileController::class, 'sign_up'])->name('mobile.sign-up');
-// Route::get('/mobile/logout', [App\Http\Controllers\Auth\LoginControllers::class, 'logout']);
-// Route::get('/create-api-key', [App\Http\Controllers\MobileController::class, 'createAPIKey'])->name('createAPIKey');
-// Route::get('/read-api-key', [App\Http\Controllers\MobileController::class, 'readAPIKey'])->name('readAPIKey');
-
-// Route::get('/mobile/send-trials', [App\Http\Controllers\HomeController::class, 'sendTrials'])->name('send-trials');
-
-Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
-Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
-Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
-// Route::get('/mobile/shopping-cart', function () {
-//     return view('mobile.shopping-cart');
-// });
-
-// Route::get('/mobile/menu', function () {
-//     $Menu = \App\Models\Menu::all();
-//     return view('mobile.menu', compact('Menu'));
-// });
-
-// Route::get('/mobile/search', function () {
-//     return view('mobile.search');
-// });
-
-// Route::get('/mobile/checkout', function () {
-//     return view('mobile.checkout');
-// });
-
-// Route::get('/mobile/menu/details', function () {
-//     return view('mobile.details');
-// });
-
-// Route::get('/mobile/profile', function () {
-//     return view('mobile.profile');
-// });
-
-// Route::get('/mobile/edit-profile', function () {
-//     return view('mobile.edit-profile');
-// });
-
-// Route::get('/mobile/offers', function () {
-//     return view('mobile.offers');
-// });
-
-// Route::get('/mobile/profile/transactions', function () {
-//     return view('mobile.transactions');
-// });
-
-// Route::get('/mobile/profile/orders', function () {
-//     return view('mobile.orders');
-// });
-
-
-
 Route::get('/', function () {
     return view('shaqshouse.index');
 });
+
+Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
+Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('stk-callback');
+Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class, 'send'])->name('send-trials');
+Route::get('/login', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
+Route::get('/home', [App\Http\Controllers\MobileController::class, 'index'])->name('get-started');
+
+
+
 
 Route::group(['prefix'=>'chomazone'], function(){
 
