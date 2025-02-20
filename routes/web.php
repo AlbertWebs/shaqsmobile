@@ -29,8 +29,8 @@ Route::get('/menu', function () {
     return view('shaqshouse.menu');
 });
 
-Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
-Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
+// Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
+// Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 Route::post('/stk-callback', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('stk-callback');
 
 
@@ -377,6 +377,8 @@ Route::group(['prefix'=>'admin'], function(){
     Route::get('/deleteSubscriber/{id}', [AdminsController::class, 'deleteSubscriber']);
 
     });
+
+
 
     Auth::routes();
     Route::group(['prefix'=>'mobile'], function(){
