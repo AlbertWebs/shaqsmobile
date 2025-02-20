@@ -1,5 +1,5 @@
 @foreach ($Menu as $menu)
-<a class="col-6 pr-2" href="{{url('/')}}/mobile/menu-item/{{$menu->id}}">
+<a class="col-6 pr-2" href="detail1#html">
     <div class="bg-white box_rounded overflow-hidden mb-3 shadow-sm">
     <img src="{{url('/')}}/uploads/menu/{{$menu->image}}" class="img-fluid">
     <div class="p-2">
