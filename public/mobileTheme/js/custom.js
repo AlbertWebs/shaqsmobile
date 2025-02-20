@@ -65,7 +65,7 @@ ga('create', 'UA-120909275-a1', 'auto');
 ga('send', 'pageview');
 
 $(document).ready(function(){
-    $('.index_slider').slick({ infinite: true, arrows: true, slidesToShow: 1, slidesToScroll: 1, dots: true });
+    $('.index_slider').slick({ infinite: true, arrows: false, slidesToShow: 1, slidesToScroll: 1, dots: true });
     $('.yum_slider').slick({ infinite: false, arrows: false, slidesToShow: 2.4, slidesToScroll: 1 });
     $('.new_slider').slick({ infinite: false, arrows: false, slidesToShow: 2, slidesToScroll: 1 });
     $('.fav_slider').slick({ infinite: false, arrows: false, slidesToShow: 1, slidesToScroll: 0.3 });
