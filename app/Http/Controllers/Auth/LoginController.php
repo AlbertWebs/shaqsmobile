@@ -15,7 +15,7 @@ use Str;
 use Session;
 use Redirect;
 
-class LoginController extends Controller
+class LoginControllers extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class LoginController extends Controller
     {
         $this->performLogout($request);
         Session::flash('message', "You have successfully logged out");
-        return redirect()->route('get-started');
+        return redirect()->route('login');
     }
 
 
@@ -59,6 +59,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function home(){
+
+    }
+
 
     public function login(Request $request)
     {
@@ -84,7 +89,7 @@ class LoginController extends Controller
     }
 
     public function facebookRedirect(){
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('facebook')->stateless()->user();
         // Logic
         $user = User::firstOrCreate([
             'email' => $user->email
@@ -107,7 +112,7 @@ class LoginController extends Controller
     }
 
     public function googleRedirect(){
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
         // Logic
         $user = User::firstOrCreate([
             'email' => $user->email
@@ -122,10 +127,11 @@ class LoginController extends Controller
     }
 
 
+
     public function callback(SocialFacebookAccountService $service)
     {
-        $user = $service->createOrGetUser(Socialite::driver('facebook')->user());
+        $user = $service->createOrGetUser(Socialite::driver('facebook')->stateless()->user());
         auth()->login($user);
-        return redirect()->to('/mobile');
+        return redirect()->to('/apps/home');
     }
 }
