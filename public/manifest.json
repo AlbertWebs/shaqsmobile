@@ -2,7 +2,7 @@
     "name": "Shaq's Bites",
     "short_name": "Shaq's",
     "lang": "en-US",
-    "start_url": "/",
+    "start_url": ".",
     "display": "standalone",
     "background_color": "white",
     "theme_color": "#0baf9a",
