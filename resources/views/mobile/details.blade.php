@@ -19,37 +19,42 @@
 
     <section class="bg-white body_rounded mt-n5 py-3 pl-3">
 
-       <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-             <div class="title mb-3">
-                <h6 class="mb-0">Whole Pizza Pies</h6>
-             </div>
-             <div class="featured_slider mb-4">
-                <a href="#">
-                   <div class="featured_item mr-2">
-                      <span class="position-absolute pb-2 pl-3">
-                         <p class="text-white mb-1">Peperoni Pie</p>
-                         <span class="text-muted">kes 23</span>
-                      </span>
-                      <img src="{{asset('mobileTheme/img/food1.jpg')}}" class="img-fluid box_rounded">
-                   </div>
-                </a>
+        @foreach ($Products as $product)
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+               <div class="featured_slider mb-4">
+                  <a href="#">
+                     <div class="featured_item mr-2">
+                        <span class="position-absolute pb-2 pl-3">
+                           <p class="text-white mb-1">{{$product->title}}</p>
+                           <span class="text-muted">kes {{$product->price}}</span>
+                        </span>
+                        <img src="{{url('/')}}/uploads/menu/{{$product->image}}" class="img-fluid box_rounded">
+                     </div>
+                  </a>
 
-             </div>
-             <div class="title mb-0">
-                <h5 class="mb-0">Whole Pizza Pies</h5>
-             </div>
-             <p class="text-primary mb-2 fw-bold">Lunch</p>
-             <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-          </div>
-       </div>
+               </div>
+               <div class="title mb-0">
+                  <h5 class="mb-0">{{$product->title}}</h5>
+               </div>
+               <p class="text-primary mb-2 fw-bold">
+                <?php
+                   $Category = \App\Models\Category::find($product->cat_id);
+                   echo $Category->cat;
+                ?>
+               </p>
+               {{-- <p class="text-muted">{{$product->content}}</p> --}}
+            </div>
+         </div>
+        @endforeach
+
     </section>
  </div>
  <footer class="bg-danger body_rounded fixed-bottom">
-    <a href="{{url('/')}}/mobile/shopping-cart/" class="d-flex p-3 align-items-center text-white">
-    <span class="py-2 px-3 box_rounded bg-white text-danger">2</span>
-    <span class="ml-3 d-flex align-items-center h5 mb-0">My cart <i class="mdi mdi-chevron-down h5 mb-0"></i></span>
-    <span class="ml-3 d-flex align-items-center ml-auto h5 mb-0 fw-bold">kes 63,00</span>
+    <a href="{{url('/')}}/mobile/shopping-cart/add-to-cart-get/{{$product->id}}" class="d-flex p-3 align-items-center text-white">
+    <span class="py-2 px-3 box_rounded bg-white text-danger">1</span>
+    <span class="ml-3 d-flex align-items-center h5 mb-0">Buy <i class="mdi mdi-chevron-down h5 mb-0"></i></span>
+    <span class="ml-3 d-flex align-items-center ml-auto h5 mb-0 fw-bold">kes  {{$product->price}}</span>
     </a>
  </footer>
 

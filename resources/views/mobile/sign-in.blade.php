@@ -3,7 +3,7 @@
 @section('content')
 <div class="d-flex align-items-center p-3 gurdeep-osahan-inner-header position-absolute w-100">
     <div class="left mr-auto">
-       <a href="{{url('/')}}/mobile/get-started" class="back_button box_rounded bg-white text-danger btn btn-sm shadow-sm">Skip</a>
+       <a href="{{url('/')}}/mobile/" class="back_button box_rounded bg-white text-danger btn btn-sm shadow-sm">Skip</a>
     </div>
     <div class="center mx-auto"></div>
     <div class="right ml-auto d-flex align-items-center">

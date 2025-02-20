@@ -1,13 +1,13 @@
 <nav id="main-nav">
     <ul class="second-nav">
        <li>
-          <a href="{{url('/')}}/mobile/menu"><i class="mdi mdi-home mr-2"></i> Home</a>
+          <a href="{{url('/')}}/mobile/get-started"><i class="mdi mdi-home mr-2"></i> Home</a>
        </li>
 
        <?php
             $Categories = DB::table('category')->get()
        ?>
-       @foreach ($Categories as $item)
+       {{-- @foreach ($Categories as $item)
        <li>
         <a href="#"><i class="mdi mdi-timeline-check-outline mr-2"></i>{{$item->cat}}</a>
         <ul>
@@ -21,10 +21,10 @@
 
         </ul>
      </li>
-       @endforeach
+       @endforeach --}}
 
        <li>
-            <a href="{{url('/')}}/mobile/shopping-cart"><i class="mdi mdi-cart mr-2"></i>Your Cart(3)</a>
+            <a href="{{url('/')}}/mobile/shopping-cart"><i class="mdi mdi-cart mr-2"></i>Your Cart({{\Cart::getContent()->count()}})</a>
 
         </li>
         <li>
@@ -36,7 +36,7 @@
 
        </li>
        <li>
-        <a href="{{url('/')}}/mobile/profile"><i class="mdi mdi-comment mr-2"></i>Live Chat</a>
+        <a href="https://api.whatsapp.com/send?text=Hello,%20Texting%20from%20Shaqs%20Bites%20App&phone=+254706788440"><i class="mdi mdi-comment mr-2"></i>Live Chat</a>
 
      </li>
        <li>
@@ -57,11 +57,11 @@
        <li class="github">
           <a href="{{url('/')}}/mobile/shopping-cart">
              <p class="h5 m-0"><i class="mdi mdi-cart"></i></p>
-             Your Cart
+             Your Cart({{\Cart::getContent()->count()}})
           </a>
        </li>
        <li class="ko-fi">
-          <a href="tel:+254723014032">
+          <a href="tel:+254706788440">
              <p class="h5 m-0"><i class="mdi mdi-headphones"></i></p>
              Help
           </a>

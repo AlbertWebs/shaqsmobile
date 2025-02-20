@@ -411,6 +411,8 @@ Route::group(['prefix'=>'admin'], function(){
 
         Route::get('/logout', [App\Http\Controllers\MobileLoginController::class, 'logouts']);
         Route::get('/menu', [App\Http\Controllers\MobileController::class, 'menus'])->name('menu');
+
+        Route::get('/menu-item/{slung}', [App\Http\Controllers\MobileController::class, 'menu_item'])->name('menu-item');
         Route::get('/menus/{slung}', [App\Http\Controllers\MobileController::class, 'menu'])->name('menu');
         Route::get('/menu/{slung}', [App\Http\Controllers\MobileController::class, 'category'])->name('category');
 
@@ -418,8 +420,10 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/edit-profile-pic', [App\Http\Controllers\MobileController::class, 'edit_profile_pic'])->name('edit-profile-pic');
         Route::post('/edit-profile-pic', [App\Http\Controllers\MobileController::class, 'edit_profile_pic_post'])->name('edit-profile-pic-post');
         Route::get('/search', [App\Http\Controllers\MobileController::class, 'search'])->name('search');
+        Route::post('/search-post', [App\Http\Controllers\MobileController::class, 'search_post'])->name('search_post');
         Route::get('/shopping-cart', [App\Http\Controllers\MobileController::class, 'shopping_cart'])->name('cart.list.mobile');
         Route::get('/shopping-cart/add-to-cart/{id}', [App\Http\Controllers\MobileController::class, 'add_to_cart'])->name('add-to-cart');
+        Route::get('/shopping-cart/add-to-cart-get/{id}', [App\Http\Controllers\MobileController::class, 'add_to_cart_get'])->name('add-to-cart-get');
         Route::get('/shopping-cart/remove/{id}', [App\Http\Controllers\MobileController::class, 'removeCart'])->name('cart.remove.mobile');
         Route::get('/checkout', [App\Http\Controllers\MobileController::class, 'checkout'])->name('checkout');
         Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');

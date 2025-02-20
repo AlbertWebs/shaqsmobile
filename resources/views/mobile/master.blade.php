@@ -39,5 +39,91 @@
       <script src="{{asset('mobileTheme/js/custom.js')}}" type="1774f278b0e80a1ae5b262c9-text/javascript"></script>
       <script src="{{asset('cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js')}}" data-cf-settings="1774f278b0e80a1ae5b262c9-|49" defer=""></script>
       <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"  crossorigin="anonymous"></script>
+      {{--  --}}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+
+        var ENDPOINT = "{{ route('index.mobile') }}";
+        var page = 1;
+        /*------------------------------------------
+        --------------------------------------------
+
+        Call on Scroll
+
+        --------------------------------------------
+        --------------------------------------------*/
+
+        $(window).scroll(function () {
+
+            if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 20)) {
+
+                page++;
+
+                infinteLoadMore(page);
+
+            }
+
+        });
+
+
+
+        /*------------------------------------------
+
+        --------------------------------------------
+
+        call infinteLoadMore()
+
+        --------------------------------------------
+
+        --------------------------------------------*/
+
+        function infinteLoadMore(page) {
+
+
+            $.ajax({
+
+                    url: ENDPOINT + "/get-started?page=" + page,
+
+                    datatype: "html",
+
+                    type: "get",
+
+                    beforeSend: function () {
+
+                        $('.auto-load').show();
+
+                    }
+
+                })
+
+                .done(function (response) {
+
+                    if (response.html == '') {
+
+                        $('.auto-load').html("We don't have more items in our menu to display :( <br> Wish to call? <a href='tel:+254706788440'>0706788440</a> ");
+
+                        return;
+
+                    }
+
+
+
+                    $('.auto-load').hide();
+
+                    $("#data-wrapper").append(response.html);
+
+                })
+
+                .fail(function (jqXHR, ajaxOptions, thrownError) {
+
+                    console.log('Server error occured');
+
+                });
+
+        }
+
+    </script>
+
+      {{--  --}}
    </body>
 </html>

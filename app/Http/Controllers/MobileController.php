@@ -92,6 +92,24 @@ class MobileController extends Controller
         return Response::json($data);
     }
 
+    public function add_to_cart_get($id)
+    {
+        $Product = Menu::find($id);
+        \Cart::add([
+            'id' => $Product->id,
+            'name' => $Product->title,
+            'price' => $Product->price,
+            'quantity' => 1,
+            'attributes' => array(
+            'image' => $Product->thumbnail,
+            )
+        ]);
+        $data = $Product->title." has been added to basket";
+        $cartItems = \Cart::getContent();
+        return view('mobile.checkout', compact('cartItems'));
+    }
+
+
     public function orders_re_order($id)
     {
         $Order = DB::table('orders')->where('id',$id)->get();
@@ -201,6 +219,13 @@ class MobileController extends Controller
         }
         return view('mobile.menu', compact('Menu','Products'));
     }
+
+    public function menu_item($menu){
+        $Products = DB::table('menus')->where('id', $menu)->get();
+        return view('mobile.details', compact('Products'));
+    }
+
+
 
     public function location(Request $request)
     {
@@ -446,6 +471,18 @@ class MobileController extends Controller
         $Menu = DB::table('menus')->where('title','LIKE','%'.$search.'%')->get();
         return view('mobile.search', compact('Menu'));
     }
+
+    public function search_post(Request $request){
+        // dd($request->key);
+        $Menu = DB::table('menus')->where('title','LIKE','%'.$request->key.'%')->paginate(3);
+        if ($request->ajax()) {
+            $view = view('mobile.data', compact('Menu'))->render();
+            return response()->json(['html' => $view]);
+        }
+        return view('mobile.search', compact('Menu'));
+    }
+
+
 
     public function lipaNaMpesaPassword()
     {

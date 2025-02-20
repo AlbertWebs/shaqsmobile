@@ -18,27 +18,20 @@
        </div>
        <div class="search_item input-group p-1 bg-white rounded-3 shadow-sm">
           <span class="input-group-text bg-white mdi mdi-magnify border-0" id="basic-addon1"></span>
-          <input type="text" class="form-control border-0 bg-white" placeholder="Search" aria-label="search" aria-describedby="basic-addon1">
+          <form method="POST" action="{{route('search_post')}}">
+            @csrf
+            <input type="text" class="form-control border-0 bg-white pl-0" name="key" placeholder="Search" aria-label="search" aria-describedby="basic-addon1">
+         </form>
        </div>
     </section>
-    <section class="featured py-3 pl-3 bg-white body_rounded mt-n5">
-        <div class="title mb-3">
-           <h6 class="mb-0 fw-bold">Featured</h6>
-        </div>
-        <div class="featured_slider">
-             @foreach ($Category as $category)
-             <a href="{{url('/')}}/menus/{{$category->id}}">
-                 <div class="featured_item mr-2">
-                     <span class="position-absolute pb-2 pl-3">
-                     <p class="text-white mb-1">{{$category->cat}}</p>
-                     {{-- <span class="text-muted">kes {{$menu->price}}</span> --}}
-                     </span>
-                     <img  src="{{url('/')}}/uploads/categories/{{$category->image}}" class="img-fluid box_rounded" style="height:130px; width:100%; object-fit:cover">
-                 </div>
-             </a>
-             @endforeach
-        </div>
-     </section>
+    <div class="px-3">
+        <section class="bg-light body_rounded position-relative row" id="data-wrapper" >
+
+            @include('mobile.data')
+
+
+        </section>
+    </div>
  </div>
 @include('mobile.horizontal-nav')
 @include('mobile.main-nav')
