@@ -42,7 +42,7 @@ Route::get('/mobile/send-trials', [App\Http\Controllers\MobileController::class,
 Auth::routes();
 Route::group(['prefix'=>'chomazone'], function(){
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('index');
-        Route::get('/menu', [App\Http\Controllers\HomeController::class, 'menu'])->name('menu');
+        // Route::get('/menu', [App\Http\Controllers\HomeController::class, 'menu'])->name('menu');
         Route::get('/menu/{slung}', [App\Http\Controllers\HomeController::class, 'menus'])->name('menus');
         Route::get('/shopping-cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.list');
         Route::get('/shopping-cart/checkout', [App\Http\Controllers\CartController::class, 'checkout'])->name('checkout');
@@ -357,7 +357,7 @@ Route::group(['prefix'=>'admin'], function(){
         Route::get('/menu', [App\Http\Controllers\MobileController::class, 'menus'])->name('menu');
 
         Route::get('/menu-item/{slung}', [App\Http\Controllers\MobileController::class, 'menu_item'])->name('menu-item');
-        Route::get('/menus/{slung}', [App\Http\Controllers\MobileController::class, 'menu'])->name('menu');
+        Route::get('/menus/{slung}', [App\Http\Controllers\MobileController::class, 'menu'])->name('menu-category');
         Route::get('/menu/{slung}', [App\Http\Controllers\MobileController::class, 'category'])->name('category');
 
 
