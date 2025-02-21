@@ -5,8 +5,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\Auth\LoginControllers;
-
 
 
 
@@ -296,8 +294,6 @@ Route::group(['prefix'=>'mobile'], function(){
     // SocialMedia
     Route::get('/facebook', [LoginController::class, 'facebook']);
     Route::get('/google', [LoginController::class, 'google']);
-    Route::get('/google/redirect', [LoginController::class, 'googleRedirect']);
-    Route::get('/facebook/redirect', [LoginController::class, 'facebookRedirect']);
 
     Route::get('/', [App\Http\Controllers\MobileLoginController::class, 'index'])->name('index.mobile');
     Route::post('/stk-call-back', [App\Http\Controllers\MobileController::class, 'customerMpesaSTKPushCallBack'])->name('mobile/stk-call-back');
@@ -328,7 +324,6 @@ Route::group(['prefix'=>'mobile'], function(){
 
 
     Route::get('/logout', [App\Http\Controllers\MobileLoginController::class, 'logouts']);
-    Route::get('/menu', [App\Http\Controllers\MobileController::class, 'menus'])->name('menu');
 
     Route::get('/menu-item/{slung}', [App\Http\Controllers\MobileController::class, 'menu_item'])->name('menu-item');
     Route::get('/menus/{slung}', [App\Http\Controllers\MobileController::class, 'menu'])->name('menu-category');
@@ -344,8 +339,6 @@ Route::group(['prefix'=>'mobile'], function(){
     Route::get('/shopping-cart/add-to-cart-get/{id}', [App\Http\Controllers\MobileController::class, 'add_to_cart_get'])->name('add-to-cart-get');
     Route::get('/shopping-cart/remove/{id}', [App\Http\Controllers\MobileController::class, 'removeCart'])->name('cart.remove.mobile');
     Route::get('/checkout', [App\Http\Controllers\MobileController::class, 'checkout'])->name('checkout');
-    Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');
-    Route::get('/offers', [App\Http\Controllers\MobileController::class, 'index'])->name('offers');
     Route::get('/food', [App\Http\Controllers\MobileController::class, 'food'])->name('food');
 
     Route::get('/get-menu', [App\Http\Controllers\MobileController::class, 'getMenu'])->name('getMenu');
