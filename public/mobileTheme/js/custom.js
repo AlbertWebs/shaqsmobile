@@ -224,17 +224,16 @@ Version: 1.0
           $(".loading-img").show();
           var productID = $(this).attr('id');
           var host = window.location.protocol + "//" + window.location.host + "/mobile/shopping-cart/add-to-cart/" + productID;
+          var host2 = window.location.protocol + "//" + window.location.host + "/mobile/shopping-cart/";
           $.ajax({
               url: host,
               method: "GET",
               success: function(response) {
                 // Handle the successful response
-              //   $("#myCart").load(location.href + " #myCart");
-                setInterval(function() {
-                  $('#myCart').load(location.href + ' #myCart');
-                }, 1000); // 60000 = 1 minute
                 $(".loading-img").hide();
                 alert(response);
+                window.location.replace(host2);
+
 
               },
               error: function(xhr, status, error) {
